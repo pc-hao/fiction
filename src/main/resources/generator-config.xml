@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <properties resource="application.yml"/>
+
+    <context id="goods" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin"/>
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
+        <plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin"/>
+<!--         Example 目标包修改插件-->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleTargetPlugin">
+            <!-- 修改Example类生成到目标包下 -->
+            <property name="targetPackage" value="com.fiction.example"/>
+        </plugin>
+<!--        <plugin type="com.itfsw.mybatis.generator.plugins.LombokPlugin">-->
+<!--            &lt;!&ndash; @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true)，@ToString(callSuper = true) &ndash;&gt;-->
+<!--            <property name="@Data" value="true"/>-->
+<!--            &lt;!&ndash; @Builder 必须在 Lombok 版本 >= 1.18.2 的情况下开启，对存在继承关系的类自动替换成@SuperBuilder &ndash;&gt;-->
+<!--            <property name="@Builder" value="false"/>-->
+<!--            &lt;!&ndash; @NoArgsConstructor 和 @AllArgsConstructor 使用规则和Lombok一致 &ndash;&gt;-->
+<!--            <property name="@AllArgsConstructor" value="false"/>-->
+<!--            <property name="@NoArgsConstructor" value="false"/>-->
+<!--            &lt;!&ndash; @Getter、@Setter、@Accessors 等使用规则参见官方文档 &ndash;&gt;-->
+<!--            <property name="@Accessors(chain = true)" value="false"/>-->
+<!--        </plugin>-->
+
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8"
+                        userId="root"
+                        password="hpc.020913">
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.fiction.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.fiction.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table tableName="user" domainObjectName="User">
+            <columnOverride column="userid" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="score" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+
+    </context>
+</generatorConfiguration>
