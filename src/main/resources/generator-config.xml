@@ -65,10 +65,10 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="user" domainObjectName="User">
-            <columnOverride column="userid" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="score" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </table>
+<!--        <table tableName="user" domainObjectName="User">-->
+<!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--        </table>-->
 
     </context>
 </generatorConfiguration>
