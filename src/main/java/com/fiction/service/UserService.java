@@ -20,6 +20,7 @@ public class UserService {
         UserExample example = new UserExample();
         example.createCriteria().andUserNameEqualTo(userName);
         User user = userMapper.selectOneByExample(example);
+
         if (Objects.isNull(user)) {
             return BaseResponse.builder()
                     .code(BaseCodeEnum.FAIL.getCode())
@@ -89,4 +90,6 @@ public class UserService {
         userMapper.deleteByExample(example);
         return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
     }
+
+
 }

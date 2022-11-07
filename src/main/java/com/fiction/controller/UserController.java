@@ -2,6 +2,8 @@ package com.fiction.controller;
 
 import com.fiction.BaseResponse;
 import com.fiction.bean.bo.LoginParamBo;
+import com.fiction.bean.bo.UserIdBo;
+import com.fiction.mapper.UserMapper;
 import com.fiction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ public class UserController {
     public BaseResponse login(@RequestBody LoginParamBo loginParamBo) {
         return userService.login(loginParamBo.getUserName(), loginParamBo.getPassword());
     }
+
 
     @PostMapping("/register")
     public BaseResponse register(@RequestBody LoginParamBo loginParamBo) {
