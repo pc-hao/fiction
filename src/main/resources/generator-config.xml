@@ -67,15 +67,32 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
+<!--
         <table tableName="user" domainObjectName="User">
             <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </table>
+-->
+<!--
 
         <table tableName="userInformation" domainObjectName="UserInformation">
             <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
             <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </table>
+-->
+<!--
+
+        <table tableName="book" domainObjectName="Book">
+            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
+<!--
+        <table tableName="userFocus" domainObjectName="UserFocus">
+            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
 
     </context>
 </generatorConfiguration>
