@@ -1,0 +1,15 @@
+create database fiction
+
+create table user(user_id char(10) primary key,
+       user_name char(10),
+       password char(10),
+       type int,
+       sex char(10),
+       email char(30),
+       national char(20),
+       signature char(200)
+       );
+insert into user values('1','小立','1234567',1,'男','20373496@buaa.edu.cn','中国','金威哥哥带带');
+insert into user values('2','小姝','12345678',3,'女','无','china','1+2=3');
+insert into user values('3','xiaoli','1234567',1,'男','20373496@buaa.edu.cn','中国','金威哥哥带带');
+insert into user values('4','xiaoshu','12345678',3,'女','无','china','1+2=3');

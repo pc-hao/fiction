@@ -20,7 +20,9 @@
             <!-- 修改Example类生成到目标包下 -->
             <property name="targetPackage" value="com.fiction.example"/>
         </plugin>
-<!--        <plugin type="com.itfsw.mybatis.generator.plugins.LombokPlugin">-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+
+        <!--        <plugin type="com.itfsw.mybatis.generator.plugins.LombokPlugin">-->
 <!--            &lt;!&ndash; @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true)，@ToString(callSuper = true) &ndash;&gt;-->
 <!--            <property name="@Data" value="true"/>-->
 <!--            &lt;!&ndash; @Builder 必须在 Lombok 版本 >= 1.18.2 的情况下开启，对存在继承关系的类自动替换成@SuperBuilder &ndash;&gt;-->
@@ -42,9 +44,9 @@
         </commentGenerator>
 
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/test?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8"
+                        connectionURL="jdbc:mysql://localhost:3306/fiction?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;allowPublicKeyRetrieval=true"
                         userId="root"
-                        password="hpc.020913">
+                        password="qiqi661131hr">
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
@@ -65,10 +67,32 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-<!--        <table tableName="user" domainObjectName="User">-->
-<!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--        </table>-->
+<!--
+        <table tableName="user" domainObjectName="User">
+            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
+<!--
+
+        <table tableName="userInformation" domainObjectName="UserInformation">
+            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
+<!--
+
+        <table tableName="book" domainObjectName="Book">
+            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
+<!--
+        <table tableName="userFocus" domainObjectName="UserFocus">
+            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
 
     </context>
 </generatorConfiguration>
