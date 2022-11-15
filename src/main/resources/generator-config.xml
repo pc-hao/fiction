@@ -93,6 +93,12 @@
             <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
         </table>
 -->
+<!--
+        <table tableName="userCollection" domainObjectName="UserCollection">
+            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
+        </table>
+-->
 
     </context>
 </generatorConfiguration>
