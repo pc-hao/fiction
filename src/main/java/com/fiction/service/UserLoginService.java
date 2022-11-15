@@ -2,10 +2,9 @@ package com.fiction.service;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.bean.bo.UserBo;
+import com.fiction.bean.bo.UserLoginBo;
 import com.fiction.entity.UserInformation;
 import com.fiction.entity.UserLogin;
-import com.fiction.example.UserInformationExample;
 import com.fiction.example.UserLoginExample;
 import com.fiction.mapper.UserInformationMapper;
 import com.fiction.mapper.UserLoginMapper;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.Objects;
 
 @Service
-public class UserService {
+public class UserLoginService {
     @Autowired
     UserLoginMapper userLoginMapper;
 
@@ -44,7 +43,7 @@ public class UserService {
 
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(new UserBo(id, userInformation.getType())).build();
+                .body(new UserLoginBo(id, userInformation.getType())).build();
     }
 
     public BaseResponse register(String userName, String password, Integer type) {

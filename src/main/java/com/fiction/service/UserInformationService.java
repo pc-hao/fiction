@@ -1,13 +1,13 @@
 package com.fiction.service;
 
-import com.fiction.entity.UserInformation;
-import com.fiction.mapper.UserInformationMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.fiction.example.UserInformationExample;
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
 import com.fiction.bean.bo.UserInformationBo;
+import com.fiction.entity.UserInformation;
+import com.fiction.example.UserInformationExample;
+import com.fiction.mapper.UserInformationMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 

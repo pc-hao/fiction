@@ -2,9 +2,10 @@ package com.fiction.mapper;
 
 import com.fiction.entity.UserFocusKey;
 import com.fiction.example.UserFocusExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface UserFocusMapper {
     long countByExample(UserFocusExample example);

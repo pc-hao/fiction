@@ -2,9 +2,10 @@ package com.fiction.mapper;
 
 import com.fiction.entity.UserLogin;
 import com.fiction.example.UserLoginExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface UserLoginMapper {
     long countByExample(UserLoginExample example);

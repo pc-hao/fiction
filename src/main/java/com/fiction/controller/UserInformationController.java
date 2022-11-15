@@ -1,12 +1,11 @@
 package com.fiction.controller;
 
 import com.fiction.BaseResponse;
-import com.fiction.bean.bo.LoginParamBo;
 import com.fiction.bean.bo.UserIdBo;
 import com.fiction.bean.bo.UserInformationBo;
+import com.fiction.service.UserInformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.fiction.service.UserInformationService;
 
 @RestController
 @RequestMapping("/userInformation")
