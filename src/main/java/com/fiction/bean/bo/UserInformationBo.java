@@ -1,13 +1,15 @@
 package com.fiction.bean.bo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class UserInforBo {
+@Builder
+public class UserInformationBo {
     private int userId;
-    private String password;
+    private String userName;
     private String userSex;
     private String userEmail;
     private String userNation;

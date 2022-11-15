@@ -1,10 +1,7 @@
 package com.fiction.entity;
 
-import lombok.Builder;
-
 import java.io.Serializable;
 
-@Builder
 public class Book implements Serializable {
     private Integer bookId;
 

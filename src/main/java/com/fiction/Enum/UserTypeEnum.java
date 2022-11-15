@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public enum UserTypeEnum {
-    DEVELOPER(0, "开发者"),
+    READER(0, "读者"),
     WRITER(1, "作者"),
-    READER(2, "读者")
-    ;
+    DEVELOPER(2, "开发者");
 
     private Integer code;
     private String message;

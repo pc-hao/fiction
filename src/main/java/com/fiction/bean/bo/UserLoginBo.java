@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class LoginParamBo {
-    private String userName;
-    private String password;
+public class UserLoginBo {
+    private Integer userId;
     private Integer type;
 }
