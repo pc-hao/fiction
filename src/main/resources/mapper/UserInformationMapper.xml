@@ -4,7 +4,6 @@
   <resultMap id="BaseResultMap" type="com.fiction.entity.UserInformation">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="type" jdbcType="INTEGER" property="type" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="email" jdbcType="VARCHAR" property="email" />
@@ -70,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, `password`, `type`, sex, email, `national`, signature
+    user_id, user_name, `type`, sex, email, `national`, signature
   </sql>
   <select id="selectByExample" parameterType="com.fiction.example.UserInformationExample" resultMap="BaseResultMap">
     select
@@ -103,11 +102,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.fiction.entity.UserInformation">
-    insert into userinformation (user_id, user_name, `password`, 
-      `type`, sex, email, `national`, 
+    insert into userinformation (user_id, user_name, `type`, 
+      sex, email, `national`, 
       signature)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{type,jdbcType=INTEGER}, #{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{national,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{sex,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{national,jdbcType=VARCHAR}, 
       #{signature,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.fiction.entity.UserInformation">
@@ -118,9 +117,6 @@
       </if>
       <if test="userName != null">
         user_name,
-      </if>
-      <if test="password != null">
-        `password`,
       </if>
       <if test="type != null">
         `type`,
@@ -144,9 +140,6 @@
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=INTEGER},
@@ -180,9 +173,6 @@
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
-        `password` = #{record.password,jdbcType=VARCHAR},
-      </if>
       <if test="record.type != null">
         `type` = #{record.type,jdbcType=INTEGER},
       </if>
@@ -207,7 +197,6 @@
     update userinformation
     set user_id = #{record.userId,jdbcType=INTEGER},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      `password` = #{record.password,jdbcType=VARCHAR},
       `type` = #{record.type,jdbcType=INTEGER},
       sex = #{record.sex,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
@@ -222,9 +211,6 @@
     <set>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        `password` = #{password,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         `type` = #{type,jdbcType=INTEGER},
@@ -247,7 +233,6 @@
   <update id="updateByPrimaryKey" parameterType="com.fiction.entity.UserInformation">
     update userinformation
     set user_name = #{userName,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
       `type` = #{type,jdbcType=INTEGER},
       sex = #{sex,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

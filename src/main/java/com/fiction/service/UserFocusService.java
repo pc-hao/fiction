@@ -1,5 +1,7 @@
 package com.fiction.service;
 
+import com.fiction.BaseResponse;
+import com.fiction.Enum.BaseCodeEnum;
 import com.fiction.bean.bo.BookBo;
 import com.fiction.bean.bo.UserFocusBo;
 import com.fiction.bean.bo.UserFocusBos;
@@ -8,18 +10,10 @@ import com.fiction.entity.UserFocusKey;
 import com.fiction.entity.UserInformation;
 import com.fiction.example.BookExample;
 import com.fiction.example.UserFocusExample;
+import com.fiction.example.UserInformationExample;
 import com.fiction.mapper.BookMapper;
 import com.fiction.mapper.UserFocusMapper;
 import com.fiction.mapper.UserInformationMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.fiction.example.UserInformationExample;
-import com.fiction.BaseResponse;
-import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.bean.bo.UserInforBo;
-import com.fiction.entity.User;
-import com.fiction.example.UserInformationExample;
-import com.fiction.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

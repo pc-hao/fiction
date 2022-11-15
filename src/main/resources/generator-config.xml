@@ -15,24 +15,24 @@
         <plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin"/>
         <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin"/>
         <plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin"/>
-<!--         Example 目标包修改插件-->
+        <!--         Example 目标包修改插件-->
         <plugin type="com.itfsw.mybatis.generator.plugins.ExampleTargetPlugin">
             <!-- 修改Example类生成到目标包下 -->
             <property name="targetPackage" value="com.fiction.example"/>
         </plugin>
-        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
 
         <!--        <plugin type="com.itfsw.mybatis.generator.plugins.LombokPlugin">-->
-<!--            &lt;!&ndash; @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true)，@ToString(callSuper = true) &ndash;&gt;-->
-<!--            <property name="@Data" value="true"/>-->
-<!--            &lt;!&ndash; @Builder 必须在 Lombok 版本 >= 1.18.2 的情况下开启，对存在继承关系的类自动替换成@SuperBuilder &ndash;&gt;-->
-<!--            <property name="@Builder" value="false"/>-->
-<!--            &lt;!&ndash; @NoArgsConstructor 和 @AllArgsConstructor 使用规则和Lombok一致 &ndash;&gt;-->
-<!--            <property name="@AllArgsConstructor" value="false"/>-->
-<!--            <property name="@NoArgsConstructor" value="false"/>-->
-<!--            &lt;!&ndash; @Getter、@Setter、@Accessors 等使用规则参见官方文档 &ndash;&gt;-->
-<!--            <property name="@Accessors(chain = true)" value="false"/>-->
-<!--        </plugin>-->
+        <!--            &lt;!&ndash; @Data 默认开启,同时插件会对子类自动附加@EqualsAndHashCode(callSuper = true)，@ToString(callSuper = true) &ndash;&gt;-->
+        <!--            <property name="@Data" value="true"/>-->
+        <!--            &lt;!&ndash; @Builder 必须在 Lombok 版本 >= 1.18.2 的情况下开启，对存在继承关系的类自动替换成@SuperBuilder &ndash;&gt;-->
+        <!--            <property name="@Builder" value="false"/>-->
+        <!--            &lt;!&ndash; @NoArgsConstructor 和 @AllArgsConstructor 使用规则和Lombok一致 &ndash;&gt;-->
+        <!--            <property name="@AllArgsConstructor" value="false"/>-->
+        <!--            <property name="@NoArgsConstructor" value="false"/>-->
+        <!--            &lt;!&ndash; @Getter、@Setter、@Accessors 等使用规则参见官方文档 &ndash;&gt;-->
+        <!--            <property name="@Accessors(chain = true)" value="false"/>-->
+        <!--        </plugin>-->
 
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
         <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
@@ -43,10 +43,17 @@
             <property name="addRemarkComments" value="true"/>
         </commentGenerator>
 
+        <!--        <jdbcConnection driverClass="${spring.database.driver-class-name}"-->
+        <!--                        connectionURL="${spring.database.url}"-->
+        <!--                        userId="${spring.database.username}"-->
+        <!--                        password="${spring.database.password}">-->
+        <!--            <property name="nullCatalogMeansCurrent" value="true"/>-->
+        <!--        </jdbcConnection>-->
+
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/fiction?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;allowPublicKeyRetrieval=true"
+                        connectionURL="jdbc:mysql://localhost:3306/test?useSSL=false&amp;useUnicode=true&amp;characterEncoding=utf8&amp;serverTimezone=GMT%2B8&amp;allowPublicKeyRetrieval=true"
                         userId="root"
-                        password="qiqi661131hr">
+                        password="hpc.020913">
             <property name="nullCatalogMeansCurrent" value="true"/>
         </jdbcConnection>
 
@@ -67,32 +74,25 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-<!--
-        <table tableName="user" domainObjectName="User">
-            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </table>
--->
-<!--
+        <!--        <table tableName="userLogin" domainObjectName="UserLogin">-->
+        <!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
 
-        <table tableName="userInformation" domainObjectName="UserInformation">
-            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </table>
--->
-<!--
+        <!--        <table tableName="userInformation" domainObjectName="UserInformation">-->
+        <!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
 
-        <table tableName="book" domainObjectName="Book">
-            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </table>
--->
-<!--
-        <table tableName="userFocus" domainObjectName="UserFocus">
-            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </table>
--->
+        <!--        <table tableName="book" domainObjectName="Book">-->
+        <!--            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
+
+        <!--        <table tableName="userFocus" domainObjectName="UserFocus">-->
+        <!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
 
     </context>
 </generatorConfiguration>

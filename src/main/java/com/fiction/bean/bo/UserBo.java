@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UserBo {
+    private Integer userId;
     private Integer type;
 }

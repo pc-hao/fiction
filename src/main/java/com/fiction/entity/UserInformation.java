@@ -10,8 +10,6 @@ public class UserInformation implements Serializable {
 
     private String userName;
 
-    private String password;
-
     private Integer type;
 
     private String sex;
@@ -38,14 +36,6 @@ public class UserInformation implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
     }
 
     public Integer getType() {
@@ -98,7 +88,6 @@ public class UserInformation implements Serializable {
     public enum Column {
         userId("user_id"),
         userName("user_name"),
-        password("password"),
         type("type"),
         sex("sex"),
         email("email"),

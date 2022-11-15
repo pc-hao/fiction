@@ -2,16 +2,13 @@ package com.fiction.controller;
 
 import com.fiction.BaseResponse;
 import com.fiction.bean.bo.LoginParamBo;
-import com.fiction.bean.bo.UserIdBo;
-import com.fiction.mapper.UserMapper;
 import com.fiction.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-//@CrossOrigin(origins="*",maxAge=3600)
-public class UserController {
+public class UserLoginController {
     @Autowired
     UserService userService;
 
@@ -33,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public BaseResponse logout(@RequestBody LoginParamBo loginParamBo) {
-        return userService.logout(loginParamBo.getUserName());
+    public BaseResponse logout(@RequestBody Integer userId) {
+        return userService.logout(userId);
     }
 }

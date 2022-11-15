@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.fiction.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.fiction.entity.User">
+<mapper namespace="com.fiction.mapper.UserLoginMapper">
+  <resultMap id="BaseResultMap" type="com.fiction.entity.UserLogin">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="type" jdbcType="INTEGER" property="type" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, user_name, `password`, `type`
+    user_id, user_name, `password`
   </sql>
-  <select id="selectByExample" parameterType="com.fiction.example.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.fiction.example.UserLoginExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from userlogin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,27 +84,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from userlogin
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from userlogin
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.fiction.example.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="com.fiction.example.UserLoginExample">
+    delete from userlogin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.fiction.entity.User">
-    insert into user (user_id, user_name, `password`, 
-      `type`)
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{type,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.fiction.entity.UserLogin">
+    insert into userlogin (user_id, user_name, `password`
+      )
+    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.fiction.entity.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.fiction.entity.UserLogin">
+    insert into userlogin
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         user_id,
@@ -115,9 +114,6 @@
       </if>
       <if test="password != null">
         `password`,
-      </if>
-      <if test="type != null">
-        `type`,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -130,19 +126,16 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=INTEGER},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.fiction.example.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="com.fiction.example.UserLoginExample" resultType="java.lang.Long">
+    select count(*) from userlogin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update userlogin
     <set>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
@@ -153,26 +146,22 @@
       <if test="record.password != null">
         `password` = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.type != null">
-        `type` = #{record.type,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update userlogin
     set user_id = #{record.userId,jdbcType=INTEGER},
       user_name = #{record.userName,jdbcType=VARCHAR},
-      `password` = #{record.password,jdbcType=VARCHAR},
-      `type` = #{record.type,jdbcType=INTEGER}
+      `password` = #{record.password,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fiction.entity.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.fiction.entity.UserLogin">
+    update userlogin
     <set>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -180,20 +169,16 @@
       <if test="password != null">
         `password` = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        `type` = #{type,jdbcType=INTEGER},
-      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.fiction.entity.User">
-    update user
+  <update id="updateByPrimaryKey" parameterType="com.fiction.entity.UserLogin">
+    update userlogin
     set user_name = #{userName,jdbcType=VARCHAR},
-      `password` = #{password,jdbcType=VARCHAR},
-      `type` = #{type,jdbcType=INTEGER}
+      `password` = #{password,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <select id="selectOneByExample" parameterType="com.fiction.example.UserExample" resultMap="BaseResultMap">
+  <select id="selectOneByExample" parameterType="com.fiction.example.UserLoginExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
       This element is automatically generated by MyBatis Generator, do not modify.
@@ -201,7 +186,7 @@
     -->
     select
     <include refid="Base_Column_List" />
-    from user
+    from userlogin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -210,13 +195,13 @@
     </if>
     limit 1
   </select>
-  <select id="selectByExampleWithRowbounds" parameterType="com.fiction.example.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExampleWithRowbounds" parameterType="com.fiction.example.UserLoginExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from userlogin
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
