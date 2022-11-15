@@ -1,7 +1,10 @@
 package com.fiction.entity;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 
+@Builder
 public class UserFocusKey implements Serializable {
     private Integer userId;
 

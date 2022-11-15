@@ -54,4 +54,9 @@ public class UserFocusService {
         example.createCriteria().andUserIdEqualTo(userId).andAuthorIdEqualTo(followId);
         userFocusMapper.deleteByExample(example);
     }
+
+    public BaseResponse addFocus(Integer userId, Integer followId) {
+        userFocusMapper.insert(UserFocusKey.builder().userId(userId).authorId(followId).build());
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
+    }
 }

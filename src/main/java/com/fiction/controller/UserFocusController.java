@@ -15,7 +15,7 @@ public class UserFocusController {
 
     @PostMapping("/add")
     public BaseResponse addFocus(@RequestBody FocusBo focusBo) {
-        return null;
+        return userFocusService.addFocus(focusBo.getUserId(), focusBo.getFollowId());
     }
 
     @GetMapping("/get")
