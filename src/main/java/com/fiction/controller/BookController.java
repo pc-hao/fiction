@@ -24,4 +24,9 @@ public class BookController {
     public BaseResponse getInformation(@RequestBody BookIdBo bookIdBo) {
         return bookService.getBookInformation(bookIdBo.getBookId());
     }
+
+    @PostMapping("/getAllChapter")
+    public BaseResponse getChapter(@RequestBody BookIdBo bookIdBo) {
+        return bookService.getAllChapter(bookIdBo.getBookId());
+    }
 }
