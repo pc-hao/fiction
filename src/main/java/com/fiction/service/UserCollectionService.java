@@ -49,6 +49,7 @@ public class UserCollectionService {
             BookInforBo bookInforBo = new BookInforBo(book.getBookId(),
                     book.getBookName(),
                     book.getCategory(),
+                    book.getAuthorId(),
                     writer.getUserName(),
                     book.getBookabstract(),
                     book.getUpdatetime(),
