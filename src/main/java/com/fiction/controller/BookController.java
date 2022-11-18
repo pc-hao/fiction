@@ -2,6 +2,7 @@ package com.fiction.controller;
 
 import com.fiction.BaseResponse;
 import com.fiction.bean.bo.BookBo;
+import com.fiction.bean.bo.BookIdAndChapterIdBo;
 import com.fiction.bean.bo.BookIdBo;
 import com.fiction.bean.bo.UserIdBo;
 import com.fiction.entity.Book;
@@ -28,5 +29,11 @@ public class BookController {
     @PostMapping("/getAllChapter")
     public BaseResponse getChapter(@RequestBody BookIdBo bookIdBo) {
         return bookService.getAllChapter(bookIdBo.getBookId());
+    }
+
+    @PostMapping("/getChapterTxt")
+    public BaseResponse getChapter(@RequestBody BookIdAndChapterIdBo bookIdAndChapterIdBo) {
+        return bookService.getChapterTxt(bookIdAndChapterIdBo.getBookId()
+                , bookIdAndChapterIdBo.getChapterId());
     }
 }

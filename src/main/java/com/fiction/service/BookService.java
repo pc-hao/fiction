@@ -80,4 +80,19 @@ public class BookService {
                 .code(BaseCodeEnum.SUCCESS.getCode())
                 .body(new Book2ChapterBo(chapterInforBos)).build();
     }
+
+    public BaseResponse getChapterTxt(Integer bookId, Integer chapterId) {
+        ChapterExample example = new ChapterExample();
+        example.createCriteria().andBookIdEqualTo(bookId).andChapterIdEqualTo(chapterId);
+        Chapter chapter = chapterMapper.selectOneByExample(example);
+
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode())
+                .body(new ChapterTxtBo(chapter.getBookId(),
+                        chapter.getChapterId(),
+                        chapter.getUpdateTime(),
+                        chapter.getChapterName(),
+                        chapter.getChapterTxt().length(),
+                        chapter.getChapterTxt()
+                )).build();
+    }
 }
