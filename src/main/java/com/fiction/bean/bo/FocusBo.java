@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class FocusBo {
     private Integer userId;
-    private Integer followId;
+    private Integer focusId;
 }

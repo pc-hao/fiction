@@ -29,8 +29,8 @@ public class UserLoginController {
         return userLoginService.changePassword(loginParamBo.getUserName(), loginParamBo.getPassword());
     }
 
-    @PostMapping("/logout")
-    public BaseResponse logout(@RequestBody Integer userId) {
+    @GetMapping("/logout")
+    public BaseResponse logout(@RequestParam Integer userId) {
         return userLoginService.logout(userId);
     }
 }

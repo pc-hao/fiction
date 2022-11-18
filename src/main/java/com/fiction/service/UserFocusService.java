@@ -38,7 +38,7 @@ public class UserFocusService {
 
             UserInformation authorInformation = userInformationMapper.selectByPrimaryKey(userFocus.getAuthorId());
 
-            if (Objects.equals(authorInformation.getType(), UserTypeEnum.WRITER.getCode())) {
+            if (Objects.nonNull(authorInformation) && Objects.equals(authorInformation.getType(), UserTypeEnum.WRITER.getCode())) {
                 focusUserBoList.add(new FocusUserBo(authorInformation.getUserId(),
                         authorInformation.getUserName(), authorInformation.getSignature()));
             }

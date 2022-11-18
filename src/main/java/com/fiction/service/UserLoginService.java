@@ -85,7 +85,7 @@ public class UserLoginService {
                     .Message("用户不存在").build();
         }
 
-        int result = userLoginMapper.updateByPrimaryKeySelective(UserLogin.builder().userId(userLogin.getUserId()).userName(userName).password(password).build());
+        int result = userLoginMapper.updateByPrimaryKeySelective(UserLogin.builder().userId(userLogin.getUserId()).password(password).build());
 
         if (result != 1) {
             return BaseResponse.builder()
@@ -103,6 +103,4 @@ public class UserLoginService {
         userInformationMapper.deleteByPrimaryKey(id);
         return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
     }
-
-
 }
