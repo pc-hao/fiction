@@ -43,6 +43,10 @@ public class BookService {
         userCollectionExample.createCriteria().andBookIdEqualTo(book.getBookId());
         List<UserCollectionKey> otherCollections = userCollectionMapper.selectByExample(userCollectionExample);
 
+        ChapterExample chapterExample = new ChapterExample();
+        chapterExample.createCriteria().andBookIdEqualTo(book.getBookId());
+        List<Chapter> chapters = chapterMapper.selectByExample(chapterExample);
+
         BookInforBo bookInforBo = new BookInforBo(book.getBookId(),
                 book.getBookName(),
                 book.getCategory(),
@@ -51,9 +55,9 @@ public class BookService {
                 book.getBookabstract(),
                 book.getUpdatetime(),
                 book.getStartdate(),
-                book.getPicload(),
-                otherCollections.size(),   // todo
-                0   // todo 章节功能尚未实现
+                book.getPicload(),  // todo
+                otherCollections.size(),
+                chapters.size()
         );
 
         return BaseResponse.builder()

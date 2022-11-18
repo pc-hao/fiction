@@ -30,6 +30,9 @@ public class UserCollectionService {
     @Autowired
     UserCollectionMapper userCollectionMapper;
 
+    @Autowired
+    ChapterMapper chapterMapper;
+
     public BaseResponse getCollectionBooks(Integer userId) {
         UserCollectionExample example = new UserCollectionExample();
         example.createCriteria().andUserIdEqualTo(userId);
@@ -46,6 +49,10 @@ public class UserCollectionService {
             example.createCriteria().andBookIdEqualTo(book.getBookId());
             List<UserCollectionKey> otherCollections = userCollectionMapper.selectByExample(example);
 
+            ChapterExample chapterExample = new ChapterExample();
+            chapterExample.createCriteria().andBookIdEqualTo(book.getBookId());
+            List<Chapter> chapters = chapterMapper.selectByExample(chapterExample);
+
             BookInforBo bookInforBo = new BookInforBo(book.getBookId(),
                     book.getBookName(),
                     book.getCategory(),
@@ -54,9 +61,9 @@ public class UserCollectionService {
                     book.getBookabstract(),
                     book.getUpdatetime(),
                     book.getStartdate(),
-                    book.getPicload(),
-                    otherCollections.size(),   // todo
-                    0   // todo 章节功能尚未实现
+                    book.getPicload(),  // todo
+                    otherCollections.size(),
+                    chapters.size()
             );
             bookInforBos.add(bookInforBo);
         }
