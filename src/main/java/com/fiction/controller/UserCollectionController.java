@@ -1,6 +1,8 @@
 package com.fiction.controller;
 
 import com.fiction.BaseResponse;
+import com.fiction.Enum.BaseCodeEnum;
+import com.fiction.bean.bo.CollectionBo;
 import com.fiction.bean.bo.UserIdBo;
 import com.fiction.service.UserCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +21,11 @@ public class UserCollectionController {
     @PostMapping("/getCollectionBooks")
     public BaseResponse getCollectionBooks(@RequestBody UserIdBo userIdBo) {
         return userCollectionService.getCollectionBooks(userIdBo.getUserId());
+    }
+
+    @PostMapping("/delete")
+    public BaseResponse delete(@RequestBody CollectionBo collectionBo) {
+        userCollectionService.deleteCollection(collectionBo.getUserId(), collectionBo.getBookId());
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
     }
 }

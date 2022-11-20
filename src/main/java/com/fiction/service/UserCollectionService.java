@@ -72,4 +72,10 @@ public class UserCollectionService {
                 .code(BaseCodeEnum.SUCCESS.getCode())
                 .body(new UserCollectionBooksBo(bookInforBos)).build();
     }
+
+    public void deleteCollection(Integer userId, Integer bookId) {
+        UserCollectionExample userCollectionExample = new UserCollectionExample();
+        userCollectionExample.createCriteria().andUserIdEqualTo(userId).andBookIdEqualTo(bookId);
+        userCollectionMapper.deleteByExample(userCollectionExample);
+    }
 }
