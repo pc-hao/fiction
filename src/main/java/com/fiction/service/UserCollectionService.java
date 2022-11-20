@@ -73,9 +73,29 @@ public class UserCollectionService {
                 .body(new UserCollectionBooksBo(bookInforBos)).build();
     }
 
-    public void deleteCollection(Integer userId, Integer bookId) {
+    public BaseResponse deleteCollection(Integer userId, Integer bookId) {
         UserCollectionExample userCollectionExample = new UserCollectionExample();
         userCollectionExample.createCriteria().andUserIdEqualTo(userId).andBookIdEqualTo(bookId);
         userCollectionMapper.deleteByExample(userCollectionExample);
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("取消收藏成功").build();
+    }
+
+    public BaseResponse addCollection(Integer userId, Integer bookId) {
+        UserCollectionExample userCollectionExample = new UserCollectionExample();
+        userCollectionExample.createCriteria().andUserIdEqualTo(userId).andBookIdEqualTo(bookId);
+        List<UserCollectionKey> userCollectionKeys = userCollectionMapper.selectByExample(userCollectionExample);
+
+        if(userCollectionKeys.size() != 0){
+            return BaseResponse.builder()
+                    .code(BaseCodeEnum.FAIL.getCode())
+                    .Message("收藏失败").build();
+        }
+
+        int result = userCollectionMapper
+                .insert(UserCollectionKey.builder().userId(userId).bookId(bookId).build());
+
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .Message("收藏成功").build();
     }
 }

@@ -25,7 +25,11 @@ public class UserCollectionController {
 
     @PostMapping("/delete")
     public BaseResponse delete(@RequestBody CollectionBo collectionBo) {
-        userCollectionService.deleteCollection(collectionBo.getUserId(), collectionBo.getBookId());
-        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
+        return userCollectionService.deleteCollection(collectionBo.getUserId(), collectionBo.getBookId());
+    }
+
+    @PostMapping("/add")
+    public BaseResponse add(@RequestBody CollectionBo collectionBo) {
+        return userCollectionService.addCollection(collectionBo.getUserId(), collectionBo.getBookId());
     }
 }

@@ -86,9 +86,24 @@ public class CommentService {
                 .body(new CommentsBo(commentBos)).build();
     }
 
-    public void deleteComment(Integer commentId) {
+    public BaseResponse deleteComment(Integer commentId) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andCommentIdEqualTo(commentId);
         commentMapper.deleteByExample(commentExample);
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("删除评论成功").build();
+    }
+
+    public BaseResponse addComment(Integer userId, Integer bookId, String text) {
+        int result = commentMapper.insert(Comment.builder().userId(userId).bookId(bookId).text(text).build());
+
+        if (result != 1) {
+            return BaseResponse.builder()
+                    .code(BaseCodeEnum.FAIL.getCode())
+                    .Message("评论失败").build();
+        }
+
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .Message("评论成功").build();
     }
 }

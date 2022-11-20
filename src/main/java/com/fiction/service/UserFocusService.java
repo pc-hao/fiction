@@ -4,8 +4,10 @@ import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
 import com.fiction.Enum.UserTypeEnum;
 import com.fiction.bean.bo.FocusUserBo;
+import com.fiction.entity.UserCollectionKey;
 import com.fiction.entity.UserFocusKey;
 import com.fiction.entity.UserInformation;
+import com.fiction.example.UserCollectionExample;
 import com.fiction.example.UserFocusExample;
 import com.fiction.mapper.UserFocusMapper;
 import com.fiction.mapper.UserInformationMapper;
@@ -49,10 +51,30 @@ public class UserFocusService {
                 .body(focusUserBoList).build();
     }
 
-    public void deleteFollow(Integer userId, Integer followId) {
+    public BaseResponse deleteFollow(Integer userId, Integer followId) {
         UserFocusExample example = new UserFocusExample();
         example.createCriteria().andUserIdEqualTo(userId).andAuthorIdEqualTo(followId);
         userFocusMapper.deleteByExample(example);
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("取消关注成功").build();
+    }
+
+    public BaseResponse addFollow(Integer userId, Integer followId) {
+        UserFocusExample userFocusExample = new UserFocusExample();
+        userFocusExample.createCriteria().andUserIdEqualTo(userId).andAuthorIdEqualTo(followId);
+        List<UserFocusKey> userFocusKeys = userFocusMapper.selectByExample(userFocusExample);
+
+        if (userFocusKeys.size() != 0) {
+            return BaseResponse.builder()
+                    .code(BaseCodeEnum.FAIL.getCode())
+                    .Message("关注失败").build();
+        }
+
+        int result = userFocusMapper
+                .insert(UserFocusKey.builder().userId(userId).authorId(followId).build());
+
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .Message("关注成功").build();
     }
 
     public BaseResponse addFocus(Integer userId, Integer followId) {
