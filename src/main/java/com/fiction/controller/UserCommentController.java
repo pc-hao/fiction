@@ -2,10 +2,7 @@ package com.fiction.controller;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.bean.bo.BookIdAndChapterIdBo;
-import com.fiction.bean.bo.BookIdBo;
-import com.fiction.bean.bo.CommentIdBo;
-import com.fiction.bean.bo.UserIdBo;
+import com.fiction.bean.bo.*;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +26,12 @@ public class UserCommentController {
     }
 
     @PostMapping("/delete")
-    public BaseResponse getComments(@RequestBody CommentIdBo commentIdBo) {
+    public BaseResponse delete(@RequestBody CommentIdBo commentIdBo) {
         return commentService.deleteComment(commentIdBo.getCommentId());
+    }
+
+    @PostMapping("/add")
+    public BaseResponse add(@RequestBody CommentInBo commentInBo) {
+        return commentService.addComment(commentInBo.getUserId(), commentInBo.getBookId(), commentInBo.getComment());
     }
 }
