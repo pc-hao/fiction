@@ -1,8 +1,10 @@
 package com.fiction.controller;
 
 import com.fiction.BaseResponse;
+import com.fiction.Enum.BaseCodeEnum;
 import com.fiction.bean.bo.BookIdAndChapterIdBo;
 import com.fiction.bean.bo.BookIdBo;
+import com.fiction.bean.bo.CommentIdBo;
 import com.fiction.bean.bo.UserIdBo;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
@@ -24,5 +26,11 @@ public class UserCommentController {
     @PostMapping("/get")
     public BaseResponse getComments(@RequestBody UserIdBo userIdBo) {
         return commentService.getUserComment(userIdBo.getUserId());
+    }
+
+    @PostMapping("/delete")
+    public BaseResponse getComments(@RequestBody CommentIdBo commentIdBo) {
+        commentService.deleteComment(commentIdBo.getCommentId());
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
     }
 }

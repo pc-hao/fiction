@@ -85,4 +85,10 @@ public class CommentService {
                 .code(BaseCodeEnum.SUCCESS.getCode())
                 .body(new CommentsBo(commentBos)).build();
     }
+
+    public void deleteComment(Integer commentId) {
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andCommentIdEqualTo(commentId);
+        commentMapper.deleteByExample(commentExample);
+    }
 }
