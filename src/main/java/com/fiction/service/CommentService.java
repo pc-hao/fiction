@@ -56,4 +56,33 @@ public class CommentService {
     }
 
 
+    public BaseResponse getUserComment(Integer userId) {
+        UserInformationExample userInformationExample = new UserInformationExample();
+        userInformationExample.createCriteria().andUserIdEqualTo(userId);
+        UserInformation userInformation = userInformationMapper.selectOneByExample(userInformationExample);
+
+        CommentExample commentExample = new CommentExample();
+        commentExample.createCriteria().andUserIdEqualTo(userId);
+        List<Comment> comments = commentMapper.selectByExample(commentExample);
+
+        ArrayList<CommentBo> commentBos = new ArrayList<>();
+        for (Comment comment : comments) {
+            BookExample example = new BookExample();
+            example.createCriteria().andBookIdEqualTo(comment.getBookId());
+            Book book = bookMapper.selectOneByExample(example);
+
+            CommentBo commentBo = new CommentBo(comment.getCommentId(),
+                    book.getBookId(),
+                    book.getBookName(),
+                    userId,
+                    userInformation.getUserName(),
+                    comment.getCommentTime(),
+                    comment.getText());
+            commentBos.add(commentBo);
+        }
+
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .body(new CommentsBo(commentBos)).build();
+    }
 }
