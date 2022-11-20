@@ -30,7 +30,6 @@ public class UserCommentController {
 
     @PostMapping("/delete")
     public BaseResponse getComments(@RequestBody CommentIdBo commentIdBo) {
-        commentService.deleteComment(commentIdBo.getCommentId());
-        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
+        return commentService.deleteComment(commentIdBo.getCommentId());
     }
 }

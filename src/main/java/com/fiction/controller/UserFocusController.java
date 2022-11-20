@@ -25,7 +25,6 @@ public class UserFocusController {
 
     @PostMapping("/delete")
     public BaseResponse delete(@RequestBody FocusBo focusBo) {
-        userFocusService.deleteFollow(focusBo.getUserId(), focusBo.getFollowId());
-        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
+        return userFocusService.deleteFollow(focusBo.getUserId(), focusBo.getFollowId());
     }
 }

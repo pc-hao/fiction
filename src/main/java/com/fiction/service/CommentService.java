@@ -86,9 +86,10 @@ public class CommentService {
                 .body(new CommentsBo(commentBos)).build();
     }
 
-    public void deleteComment(Integer commentId) {
+    public BaseResponse deleteComment(Integer commentId) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andCommentIdEqualTo(commentId);
         commentMapper.deleteByExample(commentExample);
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("删除评论成功").build();
     }
 }

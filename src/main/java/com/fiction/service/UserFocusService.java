@@ -49,9 +49,10 @@ public class UserFocusService {
                 .body(focusUserBoList).build();
     }
 
-    public void deleteFollow(Integer userId, Integer followId) {
+    public BaseResponse deleteFollow(Integer userId, Integer followId) {
         UserFocusExample example = new UserFocusExample();
         example.createCriteria().andUserIdEqualTo(userId).andAuthorIdEqualTo(followId);
         userFocusMapper.deleteByExample(example);
+        return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("取消关注成功").build();
     }
 }
