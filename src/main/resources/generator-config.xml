@@ -94,9 +94,16 @@
         <!--            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
         <!--        </table>-->
 
-                <table tableName="chapter" domainObjectName="Chapter">
-                    <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-                    <columnOverride column="chapter_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-                </table>
+<!--                <table tableName="chapter" domainObjectName="Chapter">-->
+<!--                    <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--                    <columnOverride column="chapter_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--                </table>-->
+
+<!--        <table tableName="comment" domainObjectName="Comment">-->
+<!--            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--            <columnOverride column="comment_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+<!--        </table>-->
+
     </context>
 </generatorConfiguration>
