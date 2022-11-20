@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @NoArgsConstructor
-public class FocusBo {
-    private Integer authorId;
+public class CommentInBo {
+    private Integer bookId;
     private Integer userId;
+    private String comment;
 }

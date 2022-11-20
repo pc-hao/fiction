@@ -13,10 +13,10 @@ public class UserFocusController {
     @Autowired
     UserFocusService userFocusService;
 
-    @PostMapping("/add")
-    public BaseResponse addFocus(@RequestBody FocusBo focusBo) {
-        return null;
-    }
+//    @PostMapping("/add")
+//    public BaseResponse addFocus(@RequestBody FocusBo focusBo) {
+//        return null;
+//    }
 
     @GetMapping("/get")
     public BaseResponse getFocusAuthor(@RequestParam Integer userId) {
@@ -25,6 +25,11 @@ public class UserFocusController {
 
     @PostMapping("/delete")
     public BaseResponse delete(@RequestBody FocusBo focusBo) {
-        return userFocusService.deleteFollow(focusBo.getUserId(), focusBo.getFollowId());
+        return userFocusService.deleteFollow(focusBo.getUserId(), focusBo.getAuthorId());
+    }
+
+    @PostMapping("/add")
+    public BaseResponse add(@RequestBody FocusBo focusBo) {
+        return userFocusService.addFollow(focusBo.getUserId(), focusBo.getAuthorId());
     }
 }
