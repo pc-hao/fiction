@@ -18,7 +18,7 @@ public class UserCollectionController {
     @Autowired
     UserCollectionService userCollectionService;
 
-    @PostMapping("/getCollectionBooks")
+    @PostMapping("/get")
     public BaseResponse getCollectionBooks(@RequestBody UserIdBo userIdBo) {
         return userCollectionService.getCollectionBooks(userIdBo.getUserId());
     }

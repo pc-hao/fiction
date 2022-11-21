@@ -15,7 +15,7 @@ public class UserFocusController {
 
     @PostMapping("/add")
     public BaseResponse addFocus(@RequestBody FocusBo focusBo) {
-        return userFocusService.addFocus(focusBo.getUserId(), focusBo.getFocusId());
+        return userFocusService.addFocus(focusBo.getUserId(), focusBo.getAuthorId());
     }
 
     @GetMapping("/get")
@@ -25,7 +25,7 @@ public class UserFocusController {
 
     @PostMapping("/delete")
     public BaseResponse delete(@RequestBody FocusBo focusBo) {
-        userFocusService.deleteFollow(focusBo.getUserId(), focusBo.getFocusId());
+        userFocusService.deleteFollow(focusBo.getUserId(), focusBo.getAuthorId());
         return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).build();
     }
 }

@@ -52,7 +52,7 @@ public class CommentService {
 
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(new CommentsBo(commentBos)).build();
+                .body(commentBos).build();
     }
 
 
@@ -83,7 +83,7 @@ public class CommentService {
 
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(new CommentsBo(commentBos)).build();
+                .body(commentBos).build();
     }
 
     public BaseResponse deleteComment(Integer commentId) {

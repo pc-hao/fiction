@@ -18,7 +18,7 @@ public class BookInforBo {
     private String bookAbstract;
     private String updateTime;
     private String startDate;
-    private String picLoad;
+    private String picload;
     private int collectNum;
     private int chapterNum;
 }

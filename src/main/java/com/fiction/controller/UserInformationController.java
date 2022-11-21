@@ -14,13 +14,11 @@ public class UserInformationController {
     UserInformationService userInformationService;
 
     @PostMapping("/get")
-    @CrossOrigin(origins = "*", maxAge = 3600)
     public BaseResponse get(@RequestBody UserIdBo userIdBo) {
         return userInformationService.getAllInformation(userIdBo.getUserId());
     }
 
     @PostMapping("/update")
-    @CrossOrigin(origins = "*", maxAge = 3600)
     public BaseResponse update(@RequestBody UserInformationBo userInformationBo) {
         return userInformationService.update(userInformationBo);
     }

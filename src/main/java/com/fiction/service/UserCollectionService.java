@@ -70,7 +70,7 @@ public class UserCollectionService {
 
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(new UserCollectionBooksBo(bookInforBos)).build();
+                .body(bookInforBos).build();
     }
 
     public BaseResponse deleteCollection(Integer userId, Integer bookId) {

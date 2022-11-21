@@ -3,6 +3,7 @@ package com.fiction.controller;
 import com.fiction.BaseResponse;
 import com.fiction.bean.bo.BookIdAndChapterIdBo;
 import com.fiction.bean.bo.BookIdBo;
+import com.fiction.bean.bo.UserIdBo;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,11 @@ public class BookController {
 
     @Autowired
     CommentService commentService;
+
+    @PostMapping("/getAuthorBooks")
+    public BaseResponse getAuthorBooks(@RequestBody UserIdBo userIdBo) {
+        return bookService.getAuthorBooks(userIdBo.getUserId());
+    }
 
 
     @PostMapping("/getInformation")

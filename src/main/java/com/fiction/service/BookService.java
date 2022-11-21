@@ -82,7 +82,7 @@ public class BookService {
 
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(new Book2ChapterBo(chapterInforBos)).build();
+                .body(chapterInforBos).build();
     }
 
     public BaseResponse getChapterTxt(Integer bookId, Integer chapterId) {
@@ -98,5 +98,15 @@ public class BookService {
                         chapter.getChapterTxt().length(),
                         chapter.getChapterTxt()
                 )).build();
+    }
+
+    public BaseResponse getAuthorBooks(Integer userId) {
+        BookExample example = new BookExample();
+        example.createCriteria().andAuthorIdEqualTo(userId);
+        List<Book> books = bookMapper.selectByExample(example);
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .body(books)
+                .build();
     }
 }
