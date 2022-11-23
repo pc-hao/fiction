@@ -15,6 +15,7 @@ import com.fiction.mapper.ChapterMapper;
 import com.fiction.mapper.UserCollectionMapper;
 import com.fiction.mapper.UserInformationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -39,6 +40,7 @@ public class BookService {
     @Autowired
     ChapterMapper chapterMapper;
 
+    @Lazy
     @Autowired
     UserCollectionService userCollectionService;
 
@@ -100,7 +102,6 @@ public class BookService {
             ).collect(Collectors.toList());
         }
         //其实这么写应该是有坑的，因为直接把所有书籍的信息读到内存里，在内存里做过滤，有可能信息太多了。
-        List<Book> books = bookMapper.selectByName(searchBookBo.getSearchText());
         return bookMapper.selectByName(searchBookBo.getSearchText()).stream()
                 .filter(e -> filterBook(e, searchBookBo))
                 .map(this::toBookInfo)
@@ -110,9 +111,9 @@ public class BookService {
     private boolean filterBook(Book book, SearchBookBo searchBookBo) {
         //这块处理逻辑写的简直了，可扩展性极差，先这样吧哈哈哈哈哈哈
 
-        if (!Objects.equals(book.getRestrictFirstType(), searchBookBo.getRestrictFirstType()) ||
-                !Objects.equals(book.getRestrictSecondType(), searchBookBo.getRestrictSecondType()) ||
-                !Objects.equals(book.getFinish(), searchBookBo.getRestrictFinish())) {
+        if ((searchBookBo.getRestrictFirstType() != 0 && !Objects.equals(book.getRestrictFirstType(), searchBookBo.getRestrictFirstType())) ||
+                (searchBookBo.getRestrictSecondType() != 0 && !Objects.equals(book.getRestrictSecondType(), searchBookBo.getRestrictSecondType())) ||
+                (searchBookBo.getRestrictFinish() != 0 && !Objects.equals(book.getFinish(), searchBookBo.getRestrictFinish()))) {
             return false;
         }
 
@@ -161,11 +162,11 @@ public class BookService {
         );
     }
 
-    public CountReturnBo countByFirstType(CountBo countBo) {
+    public CountReturnBo countByFirstType(Integer restrictCode) {
         ArrayList<BookFirstType> bookFirstTypes = new ArrayList<>(Arrays.asList(BookFirstType.values()));
         List<List<Book>> booksList = bookFirstTypes.stream().map(this::getBooksByFirstType).collect(Collectors.toList());
         List<String> xData = bookFirstTypes.stream().map(BookFirstType::getName).collect(Collectors.toList());
-        return count(booksList, xData, countBo.getRestrictCode());
+        return count(booksList, xData, restrictCode);
     }
 
     private List<Book> getBooksByFirstType(BookFirstType firstType) {
@@ -190,22 +191,18 @@ public class BookService {
 
     private CountReturnBo count(List<List<Book>> booksList, List<String> xData, Integer restrictCode) {
         List<Integer> yData = new ArrayList<>();
-        switch (CountType.getByCode(restrictCode)) {
-            case BOOK:
-                yData = booksList.stream().map(List::size).collect(Collectors.toList());
-                break;
-            case COLLECTION:
-                yData = booksList.stream().map(
-                                e -> e.stream().
-                                        mapToInt(o -> userCollectionService.getByBookId(o.getBookId()).size()).sum())
-                        .collect(Collectors.toList());
-                break;
-            case COMMENT:
-                yData = booksList.stream().map(
-                                e -> e.stream().
-                                        mapToInt(o -> commentService.getByBookId(o.getBookId()).size()).sum())
-                        .collect(Collectors.toList());
-                break;
+        if (CountType.BOOK.getCode().equals(restrictCode)) {
+            yData = booksList.stream().map(List::size).collect(Collectors.toList());
+        } else if (CountType.COLLECTION.getCode().equals(restrictCode)) {
+            yData = booksList.stream().map(
+                            e -> e.stream().
+                                    mapToInt(o -> userCollectionService.getByBookId(o.getBookId()).size()).sum())
+                    .collect(Collectors.toList());
+        } else if (CountType.COMMENT.getCode().equals(restrictCode)) {
+            yData = booksList.stream().map(
+                            e -> e.stream().
+                                    mapToInt(o -> commentService.getByBookId(o.getBookId()).size()).sum())
+                    .collect(Collectors.toList());
         }
         return new CountReturnBo(xData, yData);
     }

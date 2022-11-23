@@ -1,5 +1,6 @@
 package com.fiction.Enum;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public enum BookFirstType {
@@ -19,14 +20,6 @@ public enum BookFirstType {
         this.name = name;
     }
 
-    private static HashMap<Integer, BookFirstType> map;
-
-    static {
-        for (BookFirstType bookFirstType : BookFirstType.values()) {
-            map.put(bookFirstType.getCode(), bookFirstType);
-        }
-    }
-
     public Integer getCode() {
         return code;
     }
@@ -36,6 +29,11 @@ public enum BookFirstType {
     }
 
     public static BookFirstType getByCode(Integer code) {
-        return map.get(code);
+        for (BookFirstType item : BookFirstType.values()) {
+            if (item.code.equals(code)) {
+                return item;
+            }
+        }
+        return null;
     }
 }

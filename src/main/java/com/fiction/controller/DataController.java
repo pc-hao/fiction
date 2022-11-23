@@ -20,7 +20,7 @@ public class DataController {
     public BaseResponse countByFirstType(@RequestBody CountBo countBo) {
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(bookService.countByFirstType(countBo))
+                .body(bookService.countByFirstType(countBo.getRestrictCode()))
                 .build();
     }
 

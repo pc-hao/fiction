@@ -276,7 +276,10 @@
             order by ${orderByClause}
         </if>
     </select>
-    <select id="selectByName" resultType="com.fiction.entity.UserInformation">
-        select * from userinformation where user_name like "%" #{userName} "%";
+    <select id="selectByName" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from userinformation
+        where user_name like "%" #{userName} "%";
     </select>
 </mapper>

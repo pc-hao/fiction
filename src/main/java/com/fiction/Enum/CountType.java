@@ -3,18 +3,10 @@ package com.fiction.Enum;
 import java.util.HashMap;
 
 public enum CountType {
-    BOOK(1, "统计书籍数量"),
-    COLLECTION(2, "统计收藏数量"),
-    COMMENT(3, "统计评论数量"),
+    BOOK(0, "统计书籍数量"),
+    COLLECTION(1, "统计收藏数量"),
+    COMMENT(2, "统计评论数量"),
     ;
-
-    private static HashMap<Integer, CountType> map;
-
-    static {
-        for (CountType item : CountType.values()) {
-            map.put(item.getCode(), item);
-        }
-    }
 
     private Integer code;
     private String message;
@@ -25,7 +17,12 @@ public enum CountType {
     }
 
     public static CountType getByCode(Integer code) {
-        return map.get(code);
+        for (CountType item : CountType.values()) {
+            if (item.getCode().equals(code)) {
+                return item;
+            }
+        }
+        return null;
     }
 
     public Integer getCode() {
