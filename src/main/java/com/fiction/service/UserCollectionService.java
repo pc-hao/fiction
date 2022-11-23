@@ -1,13 +1,15 @@
 package com.fiction.service;
 
-import com.fiction.bean.bo.*;
-import com.fiction.entity.*;
-import com.fiction.example.*;
+import com.fiction.BaseResponse;
+import com.fiction.Enum.BaseCodeEnum;
+import com.fiction.bean.bo.BookInforBo;
+import com.fiction.entity.Book;
+import com.fiction.entity.UserCollectionKey;
+import com.fiction.example.BookExample;
+import com.fiction.example.UserCollectionExample;
 import com.fiction.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.fiction.BaseResponse;
-import com.fiction.Enum.BaseCodeEnum;
 
 import java.util.ArrayList;
 import java.util.List;

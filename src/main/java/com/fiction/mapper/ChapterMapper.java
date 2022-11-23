@@ -3,9 +3,10 @@ package com.fiction.mapper;
 import com.fiction.entity.Chapter;
 import com.fiction.entity.ChapterKey;
 import com.fiction.example.ChapterExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface ChapterMapper {
     long countByExample(ChapterExample example);

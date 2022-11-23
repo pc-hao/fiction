@@ -1,8 +1,9 @@
 package com.fiction.controller;
 
 import com.fiction.BaseResponse;
-import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.bean.bo.*;
+import com.fiction.bean.bo.CommentIdBo;
+import com.fiction.bean.bo.CommentInBo;
+import com.fiction.bean.bo.UserIdBo;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;

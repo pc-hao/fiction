@@ -2,9 +2,10 @@ package com.fiction.mapper;
 
 import com.fiction.entity.Comment;
 import com.fiction.example.CommentExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface CommentMapper {
     long countByExample(CommentExample example);

@@ -2,17 +2,21 @@ package com.fiction.service;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.Enum.UserTypeEnum;
-import com.fiction.bean.bo.*;
-import com.fiction.entity.*;
-import com.fiction.example.*;
-import com.fiction.mapper.*;
+import com.fiction.bean.bo.CommentBo;
+import com.fiction.entity.Book;
+import com.fiction.entity.Comment;
+import com.fiction.entity.UserInformation;
+import com.fiction.example.BookExample;
+import com.fiction.example.CommentExample;
+import com.fiction.example.UserInformationExample;
+import com.fiction.mapper.BookMapper;
+import com.fiction.mapper.CommentMapper;
+import com.fiction.mapper.UserInformationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CommentService {

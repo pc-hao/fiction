@@ -2,9 +2,10 @@ package com.fiction.mapper;
 
 import com.fiction.entity.UserCollectionKey;
 import com.fiction.example.UserCollectionExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface UserCollectionMapper {
     long countByExample(UserCollectionExample example);
