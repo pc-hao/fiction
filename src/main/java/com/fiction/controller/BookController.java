@@ -1,8 +1,10 @@
 package com.fiction.controller;
 
 import com.fiction.BaseResponse;
+import com.fiction.Enum.BaseCodeEnum;
 import com.fiction.bean.bo.BookIdAndChapterIdBo;
 import com.fiction.bean.bo.BookIdBo;
+import com.fiction.bean.bo.SearchBookBo;
 import com.fiction.bean.bo.UserIdBo;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
@@ -23,13 +25,17 @@ public class BookController {
 
     @PostMapping("/getAuthorBooks")
     public BaseResponse getAuthorBooks(@RequestBody UserIdBo userIdBo) {
-        return bookService.getAuthorBooks(userIdBo.getUserId());
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .body(bookService.getAuthorBooks(userIdBo.getUserId()))
+                .build();
     }
-
 
     @PostMapping("/getInformation")
     public BaseResponse getInformation(@RequestBody BookIdBo bookIdBo) {
-        return bookService.getBookInformation(bookIdBo.getBookId());
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .body(bookService.getBookInformation(bookIdBo.getBookId())).build();
     }
 
     @PostMapping("/getAllChapter")
@@ -47,4 +53,13 @@ public class BookController {
     public BaseResponse getComments(@RequestBody BookIdBo bookIdBo) {
         return commentService.getBookComment(bookIdBo.getBookId());
     }
+
+    @PostMapping("/search")
+    public BaseResponse searchBook(@RequestBody SearchBookBo searchBookBo) {
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .body(bookService.searchBook(searchBookBo)).build();
+    }
+
+
 }

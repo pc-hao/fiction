@@ -2,10 +2,9 @@ package com.fiction.mapper;
 
 import com.fiction.entity.Book;
 import com.fiction.example.BookExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
-
-import java.util.List;
 
 public interface BookMapper {
     long countByExample(BookExample example);
@@ -40,4 +39,6 @@ public interface BookMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     Book selectOneByExample(BookExample example);
+
+    List<Book> selectByName(@Param("name") String name);
 }

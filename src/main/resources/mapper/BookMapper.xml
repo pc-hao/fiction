@@ -1,289 +1,346 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fiction.mapper.BookMapper">
-  <resultMap id="BaseResultMap" type="com.fiction.entity.Book">
-    <id column="book_id" jdbcType="INTEGER" property="bookId" />
-    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
-    <result column="category" jdbcType="VARCHAR" property="category" />
-    <result column="author_id" jdbcType="INTEGER" property="authorId" />
-    <result column="bookAbstract" jdbcType="VARCHAR" property="bookabstract" />
-    <result column="updateTime" jdbcType="VARCHAR" property="updatetime" />
-    <result column="startDate" jdbcType="VARCHAR" property="startdate" />
-    <result column="picLoad" jdbcType="VARCHAR" property="picload" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+    <resultMap id="BaseResultMap" type="com.fiction.entity.Book">
+        <id column="book_id" jdbcType="INTEGER" property="bookId"/>
+        <result column="book_name" jdbcType="VARCHAR" property="bookName"/>
+        <result column="category" jdbcType="VARCHAR" property="category"/>
+        <result column="author_id" jdbcType="INTEGER" property="authorId"/>
+        <result column="restrict_first_type" jdbcType="INTEGER" property="restrictFirstType"/>
+        <result column="restrict_second_type" jdbcType="INTEGER" property="restrictSecondType"/>
+        <result column="finish" jdbcType="INTEGER" property="finish"/>
+        <result column="bookAbstract" jdbcType="VARCHAR" property="bookabstract"/>
+        <result column="updateTime" jdbcType="VARCHAR" property="updatetime"/>
+        <result column="startDate" jdbcType="VARCHAR" property="startdate"/>
+        <result column="picLoad" jdbcType="VARCHAR" property="picload"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="("
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        book_id, book_name, category, author_id, restrict_first_type, restrict_second_type,
+    finish, bookAbstract, updateTime, startDate, picLoad
+    </sql>
+    <select id="selectByExample" parameterType="com.fiction.example.BookExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
         </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    book_id, book_name, category, author_id, bookAbstract, updateTime, startDate, picLoad
-  </sql>
-  <select id="selectByExample" parameterType="com.fiction.example.BookExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from book
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from book
-    where book_id = #{bookId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from book
-    where book_id = #{bookId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.fiction.example.BookExample">
-    delete from book
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.fiction.entity.Book">
-    insert into book (book_id, book_name, category, 
-      author_id, bookAbstract, updateTime, 
-      startDate, picLoad)
-    values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, 
-      #{authorId,jdbcType=INTEGER}, #{bookabstract,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR}, 
-      #{startdate,jdbcType=VARCHAR}, #{picload,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.fiction.entity.Book">
-    insert into book
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bookId != null">
-        book_id,
-      </if>
-      <if test="bookName != null">
-        book_name,
-      </if>
-      <if test="category != null">
-        category,
-      </if>
-      <if test="authorId != null">
-        author_id,
-      </if>
-      <if test="bookabstract != null">
-        bookAbstract,
-      </if>
-      <if test="updatetime != null">
-        updateTime,
-      </if>
-      <if test="startdate != null">
-        startDate,
-      </if>
-      <if test="picload != null">
-        picLoad,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bookId != null">
-        #{bookId,jdbcType=INTEGER},
-      </if>
-      <if test="bookName != null">
-        #{bookName,jdbcType=VARCHAR},
-      </if>
-      <if test="category != null">
-        #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="authorId != null">
-        #{authorId,jdbcType=INTEGER},
-      </if>
-      <if test="bookabstract != null">
-        #{bookabstract,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="startdate != null">
-        #{startdate,jdbcType=VARCHAR},
-      </if>
-      <if test="picload != null">
-        #{picload,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.fiction.example.BookExample" resultType="java.lang.Long">
-    select count(*) from book
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update book
-    <set>
-      <if test="record.bookId != null">
-        book_id = #{record.bookId,jdbcType=INTEGER},
-      </if>
-      <if test="record.bookName != null">
+        <include refid="Base_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from book
+        where book_id = #{bookId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from book
+        where book_id = #{bookId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.fiction.example.BookExample">
+        delete from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.fiction.entity.Book">
+        insert into book (book_id, book_name, category,
+                          author_id, restrict_first_type, restrict_second_type,
+                          finish, bookAbstract, updateTime,
+                          startDate, picLoad)
+        values (#{bookId,jdbcType=INTEGER}, #{bookName,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR},
+                #{authorId,jdbcType=INTEGER}, #{restrictFirstType,jdbcType=INTEGER},
+                #{restrictSecondType,jdbcType=INTEGER},
+                #{finish,jdbcType=INTEGER}, #{bookabstract,jdbcType=VARCHAR}, #{updatetime,jdbcType=VARCHAR},
+                #{startdate,jdbcType=VARCHAR}, #{picload,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.fiction.entity.Book">
+        insert into book
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">
+                book_id,
+            </if>
+            <if test="bookName != null">
+                book_name,
+            </if>
+            <if test="category != null">
+                category,
+            </if>
+            <if test="authorId != null">
+                author_id,
+            </if>
+            <if test="restrictFirstType != null">
+                restrict_first_type,
+            </if>
+            <if test="restrictSecondType != null">
+                restrict_second_type,
+            </if>
+            <if test="finish != null">
+                finish,
+            </if>
+            <if test="bookabstract != null">
+                bookAbstract,
+            </if>
+            <if test="updatetime != null">
+                updateTime,
+            </if>
+            <if test="startdate != null">
+                startDate,
+            </if>
+            <if test="picload != null">
+                picLoad,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="bookId != null">
+                #{bookId,jdbcType=INTEGER},
+            </if>
+            <if test="bookName != null">
+                #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="authorId != null">
+                #{authorId,jdbcType=INTEGER},
+            </if>
+            <if test="restrictFirstType != null">
+                #{restrictFirstType,jdbcType=INTEGER},
+            </if>
+            <if test="restrictSecondType != null">
+                #{restrictSecondType,jdbcType=INTEGER},
+            </if>
+            <if test="finish != null">
+                #{finish,jdbcType=INTEGER},
+            </if>
+            <if test="bookabstract != null">
+                #{bookabstract,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                #{updatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="startdate != null">
+                #{startdate,jdbcType=VARCHAR},
+            </if>
+            <if test="picload != null">
+                #{picload,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.fiction.example.BookExample" resultType="java.lang.Long">
+        select count(*) from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update book
+        <set>
+            <if test="record.bookId != null">
+                book_id = #{record.bookId,jdbcType=INTEGER},
+            </if>
+            <if test="record.bookName != null">
+                book_name = #{record.bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.category != null">
+                category = #{record.category,jdbcType=VARCHAR},
+            </if>
+            <if test="record.authorId != null">
+                author_id = #{record.authorId,jdbcType=INTEGER},
+            </if>
+            <if test="record.restrictFirstType != null">
+                restrict_first_type = #{record.restrictFirstType,jdbcType=INTEGER},
+            </if>
+            <if test="record.restrictSecondType != null">
+                restrict_second_type = #{record.restrictSecondType,jdbcType=INTEGER},
+            </if>
+            <if test="record.finish != null">
+                finish = #{record.finish,jdbcType=INTEGER},
+            </if>
+            <if test="record.bookabstract != null">
+                bookAbstract = #{record.bookabstract,jdbcType=VARCHAR},
+            </if>
+            <if test="record.updatetime != null">
+                updateTime = #{record.updatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.startdate != null">
+                startDate = #{record.startdate,jdbcType=VARCHAR},
+            </if>
+            <if test="record.picload != null">
+                picLoad = #{record.picload,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update book
+        set book_id = #{record.bookId,jdbcType=INTEGER},
         book_name = #{record.bookName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.category != null">
         category = #{record.category,jdbcType=VARCHAR},
-      </if>
-      <if test="record.authorId != null">
         author_id = #{record.authorId,jdbcType=INTEGER},
-      </if>
-      <if test="record.bookabstract != null">
+        restrict_first_type = #{record.restrictFirstType,jdbcType=INTEGER},
+        restrict_second_type = #{record.restrictSecondType,jdbcType=INTEGER},
+        finish = #{record.finish,jdbcType=INTEGER},
         bookAbstract = #{record.bookabstract,jdbcType=VARCHAR},
-      </if>
-      <if test="record.updatetime != null">
         updateTime = #{record.updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="record.startdate != null">
         startDate = #{record.startdate,jdbcType=VARCHAR},
-      </if>
-      <if test="record.picload != null">
-        picLoad = #{record.picload,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update book
-    set book_id = #{record.bookId,jdbcType=INTEGER},
-      book_name = #{record.bookName,jdbcType=VARCHAR},
-      category = #{record.category,jdbcType=VARCHAR},
-      author_id = #{record.authorId,jdbcType=INTEGER},
-      bookAbstract = #{record.bookabstract,jdbcType=VARCHAR},
-      updateTime = #{record.updatetime,jdbcType=VARCHAR},
-      startDate = #{record.startdate,jdbcType=VARCHAR},
-      picLoad = #{record.picload,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fiction.entity.Book">
-    update book
-    <set>
-      <if test="bookName != null">
-        book_name = #{bookName,jdbcType=VARCHAR},
-      </if>
-      <if test="category != null">
-        category = #{category,jdbcType=VARCHAR},
-      </if>
-      <if test="authorId != null">
-        author_id = #{authorId,jdbcType=INTEGER},
-      </if>
-      <if test="bookabstract != null">
-        bookAbstract = #{bookabstract,jdbcType=VARCHAR},
-      </if>
-      <if test="updatetime != null">
-        updateTime = #{updatetime,jdbcType=VARCHAR},
-      </if>
-      <if test="startdate != null">
-        startDate = #{startdate,jdbcType=VARCHAR},
-      </if>
-      <if test="picload != null">
-        picLoad = #{picload,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where book_id = #{bookId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fiction.entity.Book">
-    update book
-    set book_name = #{bookName,jdbcType=VARCHAR},
-      category = #{category,jdbcType=VARCHAR},
-      author_id = #{authorId,jdbcType=INTEGER},
-      bookAbstract = #{bookabstract,jdbcType=VARCHAR},
-      updateTime = #{updatetime,jdbcType=VARCHAR},
-      startDate = #{startdate,jdbcType=VARCHAR},
-      picLoad = #{picload,jdbcType=VARCHAR}
-    where book_id = #{bookId,jdbcType=INTEGER}
-  </update>
-  <select id="selectOneByExample" parameterType="com.fiction.example.BookExample" resultMap="BaseResultMap">
-    <!--
-      WARNING - @mbg.generated
-      This element is automatically generated by MyBatis Generator, do not modify.
-      @project https://github.com/itfsw/mybatis-generator-plugin
-    -->
-    select
-    <include refid="Base_Column_List" />
-    from book
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    limit 1
-  </select>
-  <select id="selectByExampleWithRowbounds" parameterType="com.fiction.example.BookExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from book
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+        picLoad = #{record.picload,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fiction.entity.Book">
+        update book
+        <set>
+            <if test="bookName != null">
+                book_name = #{bookName,jdbcType=VARCHAR},
+            </if>
+            <if test="category != null">
+                category = #{category,jdbcType=VARCHAR},
+            </if>
+            <if test="authorId != null">
+                author_id = #{authorId,jdbcType=INTEGER},
+            </if>
+            <if test="restrictFirstType != null">
+                restrict_first_type = #{restrictFirstType,jdbcType=INTEGER},
+            </if>
+            <if test="restrictSecondType != null">
+                restrict_second_type = #{restrictSecondType,jdbcType=INTEGER},
+            </if>
+            <if test="finish != null">
+                finish = #{finish,jdbcType=INTEGER},
+            </if>
+            <if test="bookabstract != null">
+                bookAbstract = #{bookabstract,jdbcType=VARCHAR},
+            </if>
+            <if test="updatetime != null">
+                updateTime = #{updatetime,jdbcType=VARCHAR},
+            </if>
+            <if test="startdate != null">
+                startDate = #{startdate,jdbcType=VARCHAR},
+            </if>
+            <if test="picload != null">
+                picLoad = #{picload,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where book_id = #{bookId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.fiction.entity.Book">
+        update book
+        set book_name            = #{bookName,jdbcType=VARCHAR},
+            category             = #{category,jdbcType=VARCHAR},
+            author_id            = #{authorId,jdbcType=INTEGER},
+            restrict_first_type  = #{restrictFirstType,jdbcType=INTEGER},
+            restrict_second_type = #{restrictSecondType,jdbcType=INTEGER},
+            finish               = #{finish,jdbcType=INTEGER},
+            bookAbstract         = #{bookabstract,jdbcType=VARCHAR},
+            updateTime           = #{updatetime,jdbcType=VARCHAR},
+            startDate            = #{startdate,jdbcType=VARCHAR},
+            picLoad              = #{picload,jdbcType=VARCHAR}
+        where book_id = #{bookId,jdbcType=INTEGER}
+    </update>
+    <select id="selectOneByExample" parameterType="com.fiction.example.BookExample" resultMap="BaseResultMap">
+        <!--
+          WARNING - @mbg.generated
+          This element is automatically generated by MyBatis Generator, do not modify.
+          @project https://github.com/itfsw/mybatis-generator-plugin
+        -->
+        select
+        <include refid="Base_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit 1
+    </select>
+    <select id="selectByExampleWithRowbounds" parameterType="com.fiction.example.BookExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from book
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByName" resultType="com.fiction.entity.Book">
+        select *
+        from book
+        where book_name like "%" #{name} "%"
+    </select>
 </mapper>

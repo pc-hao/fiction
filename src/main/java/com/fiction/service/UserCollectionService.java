@@ -8,13 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.example.UserInformationExample;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class UserCollectionService {
@@ -33,6 +29,9 @@ public class UserCollectionService {
     @Autowired
     ChapterMapper chapterMapper;
 
+    @Autowired
+    BookService bookService;
+
     public BaseResponse getCollectionBooks(Integer userId) {
         UserCollectionExample example = new UserCollectionExample();
         example.createCriteria().andUserIdEqualTo(userId);
@@ -42,30 +41,7 @@ public class UserCollectionService {
             BookExample bookExample = new BookExample();
             bookExample.createCriteria().andBookIdEqualTo(userCollectionKey.getBookId());
             Book book = bookMapper.selectOneByExample(bookExample);
-
-            UserInformation writer = userInformationMapper.selectByPrimaryKey(book.getAuthorId());
-
-            example = new UserCollectionExample();
-            example.createCriteria().andBookIdEqualTo(book.getBookId());
-            List<UserCollectionKey> otherCollections = userCollectionMapper.selectByExample(example);
-
-            ChapterExample chapterExample = new ChapterExample();
-            chapterExample.createCriteria().andBookIdEqualTo(book.getBookId());
-            List<Chapter> chapters = chapterMapper.selectByExample(chapterExample);
-
-            BookInforBo bookInforBo = new BookInforBo(book.getBookId(),
-                    book.getBookName(),
-                    book.getCategory(),
-                    book.getAuthorId(),
-                    writer.getUserName(),
-                    book.getBookabstract(),
-                    book.getUpdatetime(),
-                    book.getStartdate(),
-                    book.getPicload(),  // todo
-                    otherCollections.size(),
-                    chapters.size()
-            );
-            bookInforBos.add(bookInforBo);
+            bookInforBos.add(bookService.toBookInfo(book));
         }
 
         return BaseResponse.builder()
@@ -85,7 +61,7 @@ public class UserCollectionService {
         userCollectionExample.createCriteria().andUserIdEqualTo(userId).andBookIdEqualTo(bookId);
         List<UserCollectionKey> userCollectionKeys = userCollectionMapper.selectByExample(userCollectionExample);
 
-        if(userCollectionKeys.size() != 0){
+        if (userCollectionKeys.size() != 0) {
             return BaseResponse.builder()
                     .code(BaseCodeEnum.FAIL.getCode())
                     .Message("收藏失败").build();
@@ -97,5 +73,11 @@ public class UserCollectionService {
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
                 .Message("收藏成功").build();
+    }
+
+    public List<UserCollectionKey> getByBookId(Integer bookId) {
+        UserCollectionExample userCollectionExample = new UserCollectionExample();
+        userCollectionExample.createCriteria().andBookIdEqualTo(bookId);
+        return userCollectionMapper.selectByExample(userCollectionExample);
     }
 }

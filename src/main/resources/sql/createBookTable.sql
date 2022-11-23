@@ -1,13 +1,16 @@
 CREATE TABLE IF NOT EXISTS `Book`
 (
-    `book_id`      integer UNSIGNED AUTO_INCREMENT,
-    `book_name`    VARCHAR(100) NOT NULL,
-    `category`     VARCHAR(30)  NOT NULL,
-    `author_id`    integer,
-    `bookAbstract` varchar(1000),
-    `updateTime`   varchar(200),
-    `startDate`    varchar(200),
-    `picLoad`      varchar(200),
+    `book_id`              integer UNSIGNED AUTO_INCREMENT,
+    `book_name`            VARCHAR(100) NOT NULL,
+    `category`             VARCHAR(30)  NOT NULL,
+    `author_id`            integer,
+    `restrict_first_type`  integer,
+    `restrict_second_type` integer,
+    `finish`               integer,
+    `bookAbstract`         varchar(1000),
+    `updateTime`           varchar(200),
+    `startDate`            varchar(200),
+    `picLoad`              varchar(200),
     PRIMARY KEY (book_id)
 ) DEFAULT CHARSET = utf8;
 

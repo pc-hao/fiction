@@ -40,4 +40,6 @@ public interface UserInformationMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     UserInformation selectOneByExample(UserInformationExample example);
+
+    List<UserInformation> selectByName(@Param("userName")String userName);
 }

@@ -364,6 +364,186 @@ public class BookExample {
             return (Criteria) this;
         }
 
+        public Criteria andRestrictFirstTypeIsNull() {
+            addCriterion("restrict_first_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeIsNotNull() {
+            addCriterion("restrict_first_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeEqualTo(Integer value) {
+            addCriterion("restrict_first_type =", value, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeNotEqualTo(Integer value) {
+            addCriterion("restrict_first_type <>", value, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeGreaterThan(Integer value) {
+            addCriterion("restrict_first_type >", value, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("restrict_first_type >=", value, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeLessThan(Integer value) {
+            addCriterion("restrict_first_type <", value, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("restrict_first_type <=", value, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeIn(List<Integer> values) {
+            addCriterion("restrict_first_type in", values, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeNotIn(List<Integer> values) {
+            addCriterion("restrict_first_type not in", values, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeBetween(Integer value1, Integer value2) {
+            addCriterion("restrict_first_type between", value1, value2, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictFirstTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("restrict_first_type not between", value1, value2, "restrictFirstType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeIsNull() {
+            addCriterion("restrict_second_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeIsNotNull() {
+            addCriterion("restrict_second_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeEqualTo(Integer value) {
+            addCriterion("restrict_second_type =", value, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeNotEqualTo(Integer value) {
+            addCriterion("restrict_second_type <>", value, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeGreaterThan(Integer value) {
+            addCriterion("restrict_second_type >", value, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("restrict_second_type >=", value, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeLessThan(Integer value) {
+            addCriterion("restrict_second_type <", value, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("restrict_second_type <=", value, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeIn(List<Integer> values) {
+            addCriterion("restrict_second_type in", values, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeNotIn(List<Integer> values) {
+            addCriterion("restrict_second_type not in", values, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeBetween(Integer value1, Integer value2) {
+            addCriterion("restrict_second_type between", value1, value2, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestrictSecondTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("restrict_second_type not between", value1, value2, "restrictSecondType");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIsNull() {
+            addCriterion("finish is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIsNotNull() {
+            addCriterion("finish is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishEqualTo(Integer value) {
+            addCriterion("finish =", value, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishNotEqualTo(Integer value) {
+            addCriterion("finish <>", value, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishGreaterThan(Integer value) {
+            addCriterion("finish >", value, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishGreaterThanOrEqualTo(Integer value) {
+            addCriterion("finish >=", value, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishLessThan(Integer value) {
+            addCriterion("finish <", value, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishLessThanOrEqualTo(Integer value) {
+            addCriterion("finish <=", value, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishIn(List<Integer> values) {
+            addCriterion("finish in", values, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishNotIn(List<Integer> values) {
+            addCriterion("finish not in", values, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishBetween(Integer value1, Integer value2) {
+            addCriterion("finish between", value1, value2, "finish");
+            return (Criteria) this;
+        }
+
+        public Criteria andFinishNotBetween(Integer value1, Integer value2) {
+            addCriterion("finish not between", value1, value2, "finish");
+            return (Criteria) this;
+        }
+
         public Criteria andBookabstractIsNull() {
             addCriterion("bookAbstract is null");
             return (Criteria) this;

@@ -11,6 +11,12 @@ public class Book implements Serializable {
 
     private Integer authorId;
 
+    private Integer restrictFirstType;
+
+    private Integer restrictSecondType;
+
+    private Integer finish;
+
     private String bookabstract;
 
     private String updatetime;
@@ -51,6 +57,30 @@ public class Book implements Serializable {
 
     public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
+    }
+
+    public Integer getRestrictFirstType() {
+        return restrictFirstType;
+    }
+
+    public void setRestrictFirstType(Integer restrictFirstType) {
+        this.restrictFirstType = restrictFirstType;
+    }
+
+    public Integer getRestrictSecondType() {
+        return restrictSecondType;
+    }
+
+    public void setRestrictSecondType(Integer restrictSecondType) {
+        this.restrictSecondType = restrictSecondType;
+    }
+
+    public Integer getFinish() {
+        return finish;
+    }
+
+    public void setFinish(Integer finish) {
+        this.finish = finish;
     }
 
     public String getBookabstract() {
@@ -97,6 +127,9 @@ public class Book implements Serializable {
         bookName("book_name"),
         category("category"),
         authorId("author_id"),
+        restrictFirstType("restrict_first_type"),
+        restrictSecondType("restrict_second_type"),
+        finish("finish"),
         bookabstract("bookAbstract"),
         updatetime("updateTime"),
         startdate("startDate"),

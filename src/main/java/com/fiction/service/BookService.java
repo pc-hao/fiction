@@ -1,21 +1,20 @@
 package com.fiction.service;
 
 import com.fiction.BaseResponse;
-import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.Enum.UserTypeEnum;
+import com.fiction.Enum.*;
 import com.fiction.bean.bo.*;
 import com.fiction.entity.*;
 import com.fiction.example.BookExample;
 import com.fiction.example.ChapterExample;
 import com.fiction.example.UserCollectionExample;
-import com.fiction.example.UserFocusExample;
 import com.fiction.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -31,38 +30,15 @@ public class BookService {
     @Autowired
     ChapterMapper chapterMapper;
 
+    @Autowired
+    UserCollectionService userCollectionService;
+
+    @Autowired
+    CommentService commentService;
+
     //  功能5
-    public BaseResponse getBookInformation(Integer bookId) {
-        BookExample example = new BookExample();
-        example.createCriteria().andBookIdEqualTo(bookId);
-        Book book = bookMapper.selectOneByExample(example);
-
-        UserInformation writer = userInformationMapper.selectByPrimaryKey(book.getAuthorId());
-
-        UserCollectionExample userCollectionExample = new UserCollectionExample();
-        userCollectionExample.createCriteria().andBookIdEqualTo(book.getBookId());
-        List<UserCollectionKey> otherCollections = userCollectionMapper.selectByExample(userCollectionExample);
-
-        ChapterExample chapterExample = new ChapterExample();
-        chapterExample.createCriteria().andBookIdEqualTo(book.getBookId());
-        List<Chapter> chapters = chapterMapper.selectByExample(chapterExample);
-
-        BookInforBo bookInforBo = new BookInforBo(book.getBookId(),
-                book.getBookName(),
-                book.getCategory(),
-                book.getAuthorId(),
-                writer.getUserName(),
-                book.getBookabstract(),
-                book.getUpdatetime(),
-                book.getStartdate(),
-                book.getPicload(),  // todo
-                otherCollections.size(),
-                chapters.size()
-        );
-
-        return BaseResponse.builder()
-                .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(bookInforBo).build();
+    public BookInforBo getBookInformation(Integer bookId) {
+        return toBookInfo(bookMapper.selectByPrimaryKey(bookId));
     }
 
     public BaseResponse getAllChapter(Integer bookId) {
@@ -100,13 +76,128 @@ public class BookService {
                 )).build();
     }
 
-    public BaseResponse getAuthorBooks(Integer userId) {
+    public List<Book> getAuthorBooks(Integer userId) {
         BookExample example = new BookExample();
         example.createCriteria().andAuthorIdEqualTo(userId);
         List<Book> books = bookMapper.selectByExample(example);
-        return BaseResponse.builder()
-                .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(books)
-                .build();
+        return books;
+    }
+
+    public List<BookInforBo> searchBook(SearchBookBo searchBookBo) {
+        if (searchBookBo.getSearchType().equals(SearchType.AUTHOR.getCode())) {
+            List<UserInformation> userInformations = userInformationMapper.selectByName(searchBookBo.getSearchText());
+            return userInformations.stream().flatMap(
+                    e -> getAuthorBooks(e.getUserId()).stream().map(this::toBookInfo)
+            ).collect(Collectors.toList());
+        }
+        //其实这么写应该是有坑的，因为直接把所有书籍的信息读到内存里，在内存里做过滤，有可能信息太多了。
+        List<Book> books = bookMapper.selectByName(searchBookBo.getSearchText());
+        return bookMapper.selectByName(searchBookBo.getSearchText()).stream()
+                .filter(e -> filterBook(e, searchBookBo))
+                .map(this::toBookInfo)
+                .collect(Collectors.toList());
+    }
+
+    private boolean filterBook(Book book, SearchBookBo searchBookBo) {
+        //这块处理逻辑写的简直了，可扩展性极差，先这样吧哈哈哈哈哈哈
+
+        if (!Objects.equals(book.getRestrictFirstType(), searchBookBo.getRestrictFirstType()) ||
+                !Objects.equals(book.getRestrictSecondType(), searchBookBo.getRestrictSecondType()) ||
+                !Objects.equals(book.getFinish(), searchBookBo.getRestrictFinish())) {
+            return false;
+        }
+
+        //对章节数进行检查
+        ChapterExample example = new ChapterExample();
+        example.createCriteria().andBookIdEqualTo(book.getBookId());
+        int chapterNum = chapterMapper.selectByExample(example).size();
+        if ((searchBookBo.getRestrictChapter() == 1 && chapterNum > 10) ||
+                (searchBookBo.getRestrictChapter() == 2 && (chapterNum < 10 || chapterNum > 30)) ||
+                (searchBookBo.getRestrictChapter() == 3 && chapterNum <= 30)) {
+            return false;
+        }
+
+        long day = ChronoUnit.DAYS.between(LocalDate.parse(book.getUpdatetime()), LocalDate.now());
+        if ((searchBookBo.getRestrictUpdate() == 1 && day > 3) ||
+                (searchBookBo.getRestrictUpdate() == 2 && day > 7) ||
+                (searchBookBo.getRestrictUpdate() == 3 && day <= 7)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public BookInforBo toBookInfo(Book book) {
+        UserInformation writer = userInformationMapper.selectByPrimaryKey(book.getAuthorId());
+
+        UserCollectionExample example = new UserCollectionExample();
+        example.createCriteria().andBookIdEqualTo(book.getBookId());
+        List<UserCollectionKey> otherCollections = userCollectionMapper.selectByExample(example);
+
+        ChapterExample chapterExample = new ChapterExample();
+        chapterExample.createCriteria().andBookIdEqualTo(book.getBookId());
+        List<Chapter> chapters = chapterMapper.selectByExample(chapterExample);
+
+        return new BookInforBo(book.getBookId(),
+                book.getBookName(),
+                book.getCategory(),
+                book.getAuthorId(),
+                writer.getUserName(),
+                book.getBookabstract(),
+                book.getUpdatetime(),
+                book.getStartdate(),
+                book.getPicload(),
+                otherCollections.size(),
+                chapters.size()
+        );
+    }
+
+    public CountReturnBo countByFirstType(CountBo countBo) {
+        ArrayList<BookFirstType> bookFirstTypes = new ArrayList<>(Arrays.asList(BookFirstType.values()));
+        List<List<Book>> booksList = bookFirstTypes.stream().map(this::getBooksByFirstType).collect(Collectors.toList());
+        List<String> xData = bookFirstTypes.stream().map(BookFirstType::getName).collect(Collectors.toList());
+        return count(booksList, xData, countBo.getRestrictCode());
+    }
+
+    private List<Book> getBooksByFirstType(BookFirstType firstType) {
+        BookExample bookExample = new BookExample();
+        bookExample.createCriteria().andRestrictFirstTypeEqualTo(firstType.getCode());
+        return bookMapper.selectByExample(bookExample);
+    }
+
+    public CountReturnBo countBySecondType(CountBo countBo) {
+        List<BookSecondType> bookSecondTypes = BookSecondType.getSecondTypeListByFirstType(BookFirstType.getByCode(countBo.getTypeCode()));
+        List<List<Book>> booksList = bookSecondTypes.stream().map(this::getBooksBySecondType).collect(Collectors.toList());
+        List<String> xData = bookSecondTypes.stream().map(BookSecondType::getName).collect(Collectors.toList());
+        return count(booksList, xData, countBo.getRestrictCode());
+    }
+
+    private List<Book> getBooksBySecondType(BookSecondType bookSecondType) {
+        BookExample bookExample = new BookExample();
+        bookExample.createCriteria().andRestrictFirstTypeEqualTo(bookSecondType.getFirstType().getCode())
+                .andRestrictSecondTypeEqualTo(bookSecondType.getCode());
+        return bookMapper.selectByExample(bookExample);
+    }
+
+    private CountReturnBo count(List<List<Book>> booksList, List<String> xData, Integer restrictCode) {
+        List<Integer> yData = new ArrayList<>();
+        switch (CountType.getByCode(restrictCode)) {
+            case BOOK:
+                yData = booksList.stream().map(List::size).collect(Collectors.toList());
+                break;
+            case COLLECTION:
+                yData = booksList.stream().map(
+                                e -> e.stream().
+                                        mapToInt(o -> userCollectionService.getByBookId(o.getBookId()).size()).sum())
+                        .collect(Collectors.toList());
+                break;
+            case COMMENT:
+                yData = booksList.stream().map(
+                                e -> e.stream().
+                                        mapToInt(o -> commentService.getByBookId(o.getBookId()).size()).sum())
+                        .collect(Collectors.toList());
+                break;
+        }
+        return new CountReturnBo(xData, yData);
     }
 }
