@@ -49,7 +49,8 @@ public class BookService {
 
     //  功能5
     public BookInforBo getBookInformation(Integer bookId) {
-        return toBookInfo(bookMapper.selectByPrimaryKey(bookId));
+        Book book = bookMapper.selectByPrimaryKey(bookId);
+        return bookToBookInfo(book);
     }
 
     public BaseResponse getAllChapter(Integer bookId) {
@@ -98,13 +99,13 @@ public class BookService {
         if (searchBookBo.getSearchType().equals(SearchType.AUTHOR.getCode())) {
             List<UserInformation> userInformations = userInformationMapper.selectByName(searchBookBo.getSearchText());
             return userInformations.stream().flatMap(
-                    e -> getAuthorBooks(e.getUserId()).stream().map(this::toBookInfo)
+                    e -> getAuthorBooks(e.getUserId()).stream().map(this::bookToBookInfo)
             ).collect(Collectors.toList());
         }
         //其实这么写应该是有坑的，因为直接把所有书籍的信息读到内存里，在内存里做过滤，有可能信息太多了。
         return bookMapper.selectByName(searchBookBo.getSearchText()).stream()
                 .filter(e -> filterBook(e, searchBookBo))
-                .map(this::toBookInfo)
+                .map(this::bookToBookInfo)
                 .collect(Collectors.toList());
     }
 
@@ -137,7 +138,7 @@ public class BookService {
         return true;
     }
 
-    public BookInforBo toBookInfo(Book book) {
+    public BookInforBo bookToBookInfo(Book book) {
         UserInformation writer = userInformationMapper.selectByPrimaryKey(book.getAuthorId());
 
         UserCollectionExample example = new UserCollectionExample();
@@ -164,7 +165,7 @@ public class BookService {
 
     public CountReturnBo countByFirstType(Integer restrictCode) {
         ArrayList<BookFirstType> bookFirstTypes = new ArrayList<>(Arrays.asList(BookFirstType.values()));
-        List<List<Book>> booksList = bookFirstTypes.stream().map(this::getBooksByFirstType).collect(Collectors.toList());
+         List<List<Book>> booksList = bookFirstTypes.stream().map(this::getBooksByFirstType).collect(Collectors.toList());
         List<String> xData = bookFirstTypes.stream().map(BookFirstType::getName).collect(Collectors.toList());
         return count(booksList, xData, restrictCode);
     }

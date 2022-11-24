@@ -43,7 +43,7 @@ public class UserCollectionService {
             BookExample bookExample = new BookExample();
             bookExample.createCriteria().andBookIdEqualTo(userCollectionKey.getBookId());
             Book book = bookMapper.selectOneByExample(bookExample);
-            bookInforBos.add(bookService.toBookInfo(book));
+            bookInforBos.add(bookService.bookToBookInfo(book));
         }
 
         return BaseResponse.builder()
