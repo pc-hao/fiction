@@ -2,17 +2,19 @@ package com.fiction.controller;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.bean.bo.BookIdAndChapterIdBo;
-import com.fiction.bean.bo.BookIdBo;
-import com.fiction.bean.bo.SearchBookBo;
-import com.fiction.bean.bo.UserIdBo;
+import com.fiction.bean.bo.*;
+import com.fiction.entity.Book;
+import com.fiction.entity.Chapter;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/book")
@@ -61,5 +63,47 @@ public class BookController {
                 .body(bookService.searchBook(searchBookBo)).build();
     }
 
+    @PostMapping("/addBook")
+    public BaseResponse addBook(@RequestBody BookBo bookBo) {
+        bookService.addBook(bookBo);
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .build();
+    }
 
+    @PostMapping("/changeBookInfo")
+    public BaseResponse changeBookInfo(@RequestBody BookBo bookBo) {
+        Book book = bookService.changeBookInfo(bookBo);
+        if (Objects.isNull(book)) {
+            return BaseResponse.builder()
+                    .code(BaseCodeEnum.SUCCESS.getCode())
+                    .Message("书籍不存在")
+                    .build();
+        }
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .build();
+    }
+
+    @PostMapping("/addChapter")
+    public BaseResponse addChapter(@RequestBody ChapterTxtBo chapterTxtBo) {
+        bookService.addChapter(chapterTxtBo);
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .build();
+    }
+
+    @PostMapping("/changeChapter")
+    public BaseResponse changeChapter(@RequestBody ChapterTxtBo chapterTxtBo) {
+        Chapter chapter = bookService.changeChapter(chapterTxtBo);
+        if (Objects.isNull(chapter)) {
+            return BaseResponse.builder()
+                    .code(BaseCodeEnum.SUCCESS.getCode())
+                    .Message("章节不存在")
+                    .build();
+        }
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .build();
+    }
 }

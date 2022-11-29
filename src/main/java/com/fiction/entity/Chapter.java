@@ -1,7 +1,10 @@
 package com.fiction.entity;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 
+@Builder
 public class Chapter extends ChapterKey implements Serializable {
     private String chapterName;
 

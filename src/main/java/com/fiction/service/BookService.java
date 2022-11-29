@@ -92,6 +92,7 @@ public class BookService {
         BookExample example = new BookExample();
         example.createCriteria().andAuthorIdEqualTo(userId);
         List<Book> books = bookMapper.selectByExample(example);
+        books.forEach(e -> e.setPicload(String.valueOf(e.getBookId())));
         return books;
     }
 
@@ -157,7 +158,7 @@ public class BookService {
                 book.getBookabstract(),
                 book.getUpdatetime(),
                 book.getStartdate(),
-                book.getPicload(),
+                book.getBookId().toString(), //目前是图片路径等于图片id，图片实际存储在前端
                 otherCollections.size(),
                 chapters.size()
         );
@@ -165,7 +166,7 @@ public class BookService {
 
     public CountReturnBo countByFirstType(Integer restrictCode) {
         ArrayList<BookFirstType> bookFirstTypes = new ArrayList<>(Arrays.asList(BookFirstType.values()));
-         List<List<Book>> booksList = bookFirstTypes.stream().map(this::getBooksByFirstType).collect(Collectors.toList());
+        List<List<Book>> booksList = bookFirstTypes.stream().map(this::getBooksByFirstType).collect(Collectors.toList());
         List<String> xData = bookFirstTypes.stream().map(BookFirstType::getName).collect(Collectors.toList());
         return count(booksList, xData, restrictCode);
     }
@@ -206,5 +207,57 @@ public class BookService {
                     .collect(Collectors.toList());
         }
         return new CountReturnBo(xData, yData);
+    }
+
+    public void addBook(BookBo bookBo) {
+        Book book = Book.builder()
+                .bookName(bookBo.getBookName())
+                .category("")
+                .authorId(bookBo.getUserId())
+                .restrictFirstType(bookBo.getRestrictFirstType())
+                .restrictSecondType(bookBo.getRestrictSecondType())
+                .finish(1)
+                .bookabstract(bookBo.getBookAbstract())
+                .updatetime(String.valueOf(LocalDate.now()))
+                .startdate(String.valueOf(LocalDate.now()))
+                .build();
+        bookMapper.insertSelective(book);
+    }
+
+    public Book changeBookInfo(BookBo bookBo) {
+        Book book = bookMapper.selectByPrimaryKey(bookBo.getBookId());
+        if (Objects.isNull(book)) {
+            return null;
+        }
+        book.setBookName(bookBo.getBookName());
+        book.setBookabstract(bookBo.getBookAbstract());
+        bookMapper.updateByPrimaryKeySelective(book);
+        return book;
+    }
+
+    public void addChapter(ChapterTxtBo chapterTxtBo) {
+        ChapterExample example = new ChapterExample();
+        example.createCriteria().andBookIdEqualTo(chapterTxtBo.getBookId());
+        List<Chapter> chapters = chapterMapper.selectByExample(example);
+        Chapter chapter = Chapter.builder()
+                .chapterName(chapterTxtBo.getChapterName())
+                .chapterTxt(chapterTxtBo.getText())
+                .updateTime(String.valueOf(LocalDate.now()))
+                .build();
+        chapter.setBookId(chapterTxtBo.getBookId());
+        chapter.setChapterId(chapters.size() + 1);
+        chapterMapper.insertSelective(chapter);
+    }
+
+    public Chapter changeChapter(ChapterTxtBo chapterTxtBo) {
+        ChapterExample example = new ChapterExample();
+        example.createCriteria().andBookIdEqualTo(chapterTxtBo.getBookId()).andChapterIdEqualTo(chapterTxtBo.getChapterId());
+        Chapter chapter = chapterMapper.selectOneByExample(example);
+        if (Objects.isNull(chapter)) {
+            return null;
+        }
+        chapter.setChapterTxt(chapterTxtBo.getText());
+        chapterMapper.updateByPrimaryKeySelective(chapter);
+        return chapter;
     }
 }
