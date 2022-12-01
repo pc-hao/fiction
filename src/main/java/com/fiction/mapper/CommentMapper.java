@@ -40,4 +40,6 @@ public interface CommentMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     Comment selectOneByExample(CommentExample example);
+
+    int countByBookId(@Param("book_id")Integer bookId);
 }

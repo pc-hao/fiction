@@ -82,4 +82,8 @@ public class UserCollectionService {
         userCollectionExample.createCriteria().andBookIdEqualTo(bookId);
         return userCollectionMapper.selectByExample(userCollectionExample);
     }
+
+    public int countByBookId(Integer bookId) {
+        return userCollectionMapper.countByBookId(bookId);
+    }
 }

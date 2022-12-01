@@ -41,4 +41,6 @@ public interface BookMapper {
     Book selectOneByExample(BookExample example);
 
     List<Book> selectByName(@Param("name") String name);
+
+    List<Book> getBookByUid(@Param("author_id")Integer userId);
 }

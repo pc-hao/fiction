@@ -89,9 +89,7 @@ public class BookService {
     }
 
     public List<Book> getAuthorBooks(Integer userId) {
-        BookExample example = new BookExample();
-        example.createCriteria().andAuthorIdEqualTo(userId);
-        List<Book> books = bookMapper.selectByExample(example);
+        List<Book> books = bookMapper.getBookByUid(userId);
         books.forEach(e -> e.setPicload(String.valueOf(e.getBookId())));
         return books;
     }
@@ -198,12 +196,12 @@ public class BookService {
         } else if (CountType.COLLECTION.getCode().equals(restrictCode)) {
             yData = booksList.stream().map(
                             e -> e.stream().
-                                    mapToInt(o -> userCollectionService.getByBookId(o.getBookId()).size()).sum())
+                                    mapToInt(o -> userCollectionService.countByBookId(o.getBookId())).sum())
                     .collect(Collectors.toList());
         } else if (CountType.COMMENT.getCode().equals(restrictCode)) {
             yData = booksList.stream().map(
                             e -> e.stream().
-                                    mapToInt(o -> commentService.getByBookId(o.getBookId()).size()).sum())
+                                    mapToInt(o -> commentService.countByBookId(o.getBookId())).sum())
                     .collect(Collectors.toList());
         }
         return new CountReturnBo(xData, yData);

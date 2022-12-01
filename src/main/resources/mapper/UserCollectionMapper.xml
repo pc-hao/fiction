@@ -173,4 +173,7 @@
       order by ${orderByClause}
     </if>
   </select>
+    <select id="countByBookId" resultType="java.lang.Integer">
+      select countCollectionByBookId(#{book_id});
+    </select>
 </mapper>

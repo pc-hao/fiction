@@ -34,4 +34,6 @@ public interface UserCollectionMapper {
      * @project https://github.com/itfsw/mybatis-generator-plugin
      */
     UserCollectionKey selectOneByExample(UserCollectionExample example);
+
+    int countByBookId(@Param("book_id")Integer bookId);
 }

@@ -339,9 +339,9 @@
         </if>
     </select>
     <select id="selectByName" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from book
-        where book_name like "%" #{name} "%"
+        call fuzzyQueryBookByName(#{name})
+    </select>
+    <select id="getBookByUid" resultMap="BaseResultMap">
+        call GetBookByUid(#{author_id})
     </select>
 </mapper>

@@ -111,9 +111,7 @@ public class CommentService {
                 .Message("评论成功").build();
     }
 
-    public List<Comment> getByBookId(Integer bookId) {
-        CommentExample commentExample = new CommentExample();
-        commentExample.createCriteria().andBookIdEqualTo(bookId);
-        return commentMapper.selectByExample(commentExample);
+    public int countByBookId(Integer bookId) {
+        return commentMapper.countByBookId(bookId);
     }
 }
