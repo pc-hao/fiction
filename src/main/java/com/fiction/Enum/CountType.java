@@ -1,7 +1,5 @@
 package com.fiction.Enum;
 
-import java.util.HashMap;
-
 public enum CountType {
     BOOK(0, "统计书籍数量"),
     COLLECTION(1, "统计收藏数量"),

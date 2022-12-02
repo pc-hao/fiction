@@ -2,12 +2,14 @@ package com.fiction.service;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
+import com.fiction.Enum.SqlType;
 import com.fiction.bean.bo.BookInforBo;
 import com.fiction.entity.Book;
 import com.fiction.entity.UserCollectionKey;
 import com.fiction.example.BookExample;
 import com.fiction.example.UserCollectionExample;
 import com.fiction.mapper.*;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,6 +56,7 @@ public class UserCollectionService {
     public BaseResponse deleteCollection(Integer userId, Integer bookId) {
         UserCollectionExample userCollectionExample = new UserCollectionExample();
         userCollectionExample.createCriteria().andUserIdEqualTo(userId).andBookIdEqualTo(bookId);
+        LogUtils.log(SqlType.DELETE, "usercollection", "userId : " + userId + ", bookId : " + bookId);
         userCollectionMapper.deleteByExample(userCollectionExample);
         return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("取消收藏成功").build();
     }
@@ -69,8 +72,9 @@ public class UserCollectionService {
                     .Message("收藏失败").build();
         }
 
-        int result = userCollectionMapper
-                .insert(UserCollectionKey.builder().userId(userId).bookId(bookId).build());
+        UserCollectionKey userCollectionKey = UserCollectionKey.builder().userId(userId).bookId(bookId).build();
+        LogUtils.log(SqlType.INSERT, "usercollection", String.valueOf(new JSONObject(userCollectionKey)));
+        userCollectionMapper.insertSelective(userCollectionKey);
 
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())

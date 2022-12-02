@@ -2,9 +2,10 @@ package com.fiction.mapper;
 
 import com.fiction.entity.Log;
 import com.fiction.example.LogExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
+
+import java.util.List;
 
 public interface LogMapper {
     long countByExample(LogExample example);

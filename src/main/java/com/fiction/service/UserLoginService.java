@@ -2,7 +2,6 @@ package com.fiction.service;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
-import com.fiction.bean.bo.UserLoginBo;
 import com.fiction.entity.UserInformation;
 import com.fiction.entity.UserLogin;
 import com.fiction.example.UserLoginExample;

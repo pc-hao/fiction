@@ -2,6 +2,7 @@ package com.fiction.service;
 
 import com.fiction.BaseResponse;
 import com.fiction.Enum.BaseCodeEnum;
+import com.fiction.Enum.SqlType;
 import com.fiction.bean.bo.CommentBo;
 import com.fiction.entity.Book;
 import com.fiction.entity.Comment;
@@ -12,6 +13,7 @@ import com.fiction.example.UserInformationExample;
 import com.fiction.mapper.BookMapper;
 import com.fiction.mapper.CommentMapper;
 import com.fiction.mapper.UserInformationMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,12 +95,15 @@ public class CommentService {
     public BaseResponse deleteComment(Integer commentId) {
         CommentExample commentExample = new CommentExample();
         commentExample.createCriteria().andCommentIdEqualTo(commentId);
+        LogUtils.log(SqlType.DELETE, "comment", "commentId : " + commentId);
         commentMapper.deleteByExample(commentExample);
         return BaseResponse.builder().code(BaseCodeEnum.SUCCESS.getCode()).Message("删除评论成功").build();
     }
 
     public BaseResponse addComment(Integer userId, Integer bookId, String text) {
-        int result = commentMapper.insert(Comment.builder().userId(userId).bookId(bookId).text(text).build());
+        Comment comment = Comment.builder().userId(userId).bookId(bookId).text(text).build();
+        LogUtils.log(SqlType.INSERT, "comment", String.valueOf(new JSONObject(comment)));
+        int result = commentMapper.insert();
 
         if (result != 1) {
             return BaseResponse.builder()

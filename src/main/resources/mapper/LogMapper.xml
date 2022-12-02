@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fiction.entity.Log">
     <id column="log_id" jdbcType="INTEGER" property="logId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="table" jdbcType="VARCHAR" property="table" />
     <result column="parameter" jdbcType="VARCHAR" property="parameter" />
     <result column="startDate" jdbcType="VARCHAR" property="startdate" />
@@ -104,7 +104,7 @@
     insert into log (log_id, user_id, `type`, 
       `table`, `parameter`, startDate
       )
-    values (#{logId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+    values (#{logId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
       #{table,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}
       )
   </insert>
@@ -138,7 +138,7 @@
         #{userId,jdbcType=INTEGER},
       </if>
       <if test="type != null">
-        #{type,jdbcType=INTEGER},
+        #{type,jdbcType=VARCHAR},
       </if>
       <if test="table != null">
         #{table,jdbcType=VARCHAR},
@@ -167,7 +167,7 @@
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.type != null">
-        `type` = #{record.type,jdbcType=INTEGER},
+        `type` = #{record.type,jdbcType=VARCHAR},
       </if>
       <if test="record.table != null">
         `table` = #{record.table,jdbcType=VARCHAR},
@@ -187,7 +187,7 @@
     update log
     set log_id = #{record.logId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      `type` = #{record.type,jdbcType=INTEGER},
+      `type` = #{record.type,jdbcType=VARCHAR},
       `table` = #{record.table,jdbcType=VARCHAR},
       `parameter` = #{record.parameter,jdbcType=VARCHAR},
       startDate = #{record.startdate,jdbcType=VARCHAR}
@@ -202,7 +202,7 @@
         user_id = #{userId,jdbcType=INTEGER},
       </if>
       <if test="type != null">
-        `type` = #{type,jdbcType=INTEGER},
+        `type` = #{type,jdbcType=VARCHAR},
       </if>
       <if test="table != null">
         `table` = #{table,jdbcType=VARCHAR},
@@ -219,7 +219,7 @@
   <update id="updateByPrimaryKey" parameterType="com.fiction.entity.Log">
     update log
     set user_id = #{userId,jdbcType=INTEGER},
-      `type` = #{type,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=VARCHAR},
       `table` = #{table,jdbcType=VARCHAR},
       `parameter` = #{parameter,jdbcType=VARCHAR},
       startDate = #{startdate,jdbcType=VARCHAR}

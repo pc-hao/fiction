@@ -1,13 +1,16 @@
 package com.fiction.entity;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 
+@Builder
 public class Log implements Serializable {
     private Integer logId;
 
     private Integer userId;
 
-    private Integer type;
+    private String type;
 
     private String table;
 
@@ -33,12 +36,12 @@ public class Log implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setType(String type) {
+        this.type = type == null ? null : type.trim();
     }
 
     public String getTable() {

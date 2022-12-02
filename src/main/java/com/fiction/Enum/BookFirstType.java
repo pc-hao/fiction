@@ -1,8 +1,5 @@
 package com.fiction.Enum;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public enum BookFirstType {
     MYSTERIOUS(1, "玄幻"),
     SCIENCE(2, "科幻"),

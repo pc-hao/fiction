@@ -14,6 +14,7 @@ import com.fiction.mapper.BookMapper;
 import com.fiction.mapper.ChapterMapper;
 import com.fiction.mapper.UserCollectionMapper;
 import com.fiction.mapper.UserInformationMapper;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -219,6 +220,7 @@ public class BookService {
                 .updatetime(String.valueOf(LocalDate.now()))
                 .startdate(String.valueOf(LocalDate.now()))
                 .build();
+        LogUtils.log(SqlType.INSERT, "book", String.valueOf(new JSONObject(book)));
         bookMapper.insertSelective(book);
     }
 
@@ -227,6 +229,10 @@ public class BookService {
         if (Objects.isNull(book)) {
             return null;
         }
+        LogUtils.log(SqlType.UPDATE, "book",
+                String.format("oldName : %s, newName : %s, oldAbstract : %s, newAbstract: %s"
+                        , book.getBookName(), bookBo.getBookName(), book.getBookabstract(), bookBo.getBookAbstract()));
+
         book.setBookName(bookBo.getBookName());
         book.setBookabstract(bookBo.getBookAbstract());
         bookMapper.updateByPrimaryKeySelective(book);
@@ -244,6 +250,7 @@ public class BookService {
                 .build();
         chapter.setBookId(chapterTxtBo.getBookId());
         chapter.setChapterId(chapters.size() + 1);
+        LogUtils.log(SqlType.INSERT, "book", String.valueOf(new JSONObject(chapter)));
         chapterMapper.insertSelective(chapter);
     }
 
@@ -254,6 +261,9 @@ public class BookService {
         if (Objects.isNull(chapter)) {
             return null;
         }
+        LogUtils.log(SqlType.UPDATE, "book",
+                String.format("oldTxt : %s, newTxt : %s"
+                        , chapter.getChapterTxt(), chapterTxtBo.getText()));
         chapter.setChapterTxt(chapterTxtBo.getText());
         chapterMapper.updateByPrimaryKeySelective(chapter);
         return chapter;
