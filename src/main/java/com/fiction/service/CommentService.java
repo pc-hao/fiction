@@ -103,7 +103,7 @@ public class CommentService {
     public BaseResponse addComment(Integer userId, Integer bookId, String text) {
         Comment comment = Comment.builder().userId(userId).bookId(bookId).text(text).build();
         LogUtils.log(SqlType.INSERT, "comment", String.valueOf(new JSONObject(comment)));
-        int result = commentMapper.insert();
+        int result = commentMapper.insert(comment);
 
         if (result != 1) {
             return BaseResponse.builder()
