@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan(basePackages = {"com.fiction.mapper"})
 public class FictionApplication {
 
+    public static Integer Uid = 0;
+
     public static void main(String[] args) {
         SpringApplication.run(FictionApplication.class, args);
     }
