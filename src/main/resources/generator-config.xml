@@ -84,29 +84,35 @@
         <!--            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
         <!--        </table>-->
 
-        <table tableName="book" domainObjectName="Book">
-            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="restrict_first_type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="restrict_second_type" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-            <columnOverride column="finish" javaType="java.lang.Integer" jdbcType="INTEGER"/>
-        </table>
+        <!--        <table tableName="book" domainObjectName="Book">-->
+        <!--            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="restrict_first_type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="restrict_second_type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="finish" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
+
+<!--        <table tableName="log" domainObjectName="Log">-->
+        <!--            <columnOverride column="log_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="type" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
 
         <!--        <table tableName="userFocus" domainObjectName="UserFocus">-->
         <!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
         <!--            <columnOverride column="author_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
         <!--        </table>-->
 
-<!--                <table tableName="chapter" domainObjectName="Chapter">-->
-<!--                    <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--                    <columnOverride column="chapter_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--                </table>-->
+        <!--                <table tableName="chapter" domainObjectName="Chapter">-->
+        <!--                    <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--                    <columnOverride column="chapter_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--                </table>-->
 
-<!--        <table tableName="comment" domainObjectName="Comment">-->
-<!--            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--            <columnOverride column="comment_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
-<!--        </table>-->
+        <!--        <table tableName="comment" domainObjectName="Comment">-->
+        <!--            <columnOverride column="book_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--            <columnOverride column="comment_id" javaType="java.lang.Integer" jdbcType="INTEGER"/>-->
+        <!--        </table>-->
 
     </context>
 </generatorConfiguration>
