@@ -21,29 +21,15 @@ public class UserLoginService {
     @Autowired
     UserInformationMapper userInformationMapper;
 
-    public BaseResponse login(String userName, String password) {
+    public UserInformation login(String userName, String password) {
         UserLoginExample example = new UserLoginExample();
         example.createCriteria().andUserNameEqualTo(userName);
         UserLogin userLogin = userLoginMapper.selectOneByExample(example);
 
-        if (Objects.isNull(userLogin)) {
-            return BaseResponse.builder()
-                    .code(BaseCodeEnum.FAIL.getCode())
-                    .Message("用户不存在").build();
-        }
+        PredictionUtils.check(Objects.isNull(userLogin), "用户不存在");
+        PredictionUtils.check(!Objects.equals(password, userLogin.getPassword()), "密码错误");
 
-        if (!Objects.equals(password, userLogin.getPassword())) {
-            return BaseResponse.builder()
-                    .code(BaseCodeEnum.FAIL.getCode())
-                    .Message("密码错误").build();
-        }
-
-        int id = userLogin.getUserId();
-        UserInformation userInformation = userInformationMapper.selectByPrimaryKey(id);
-
-        return BaseResponse.builder()
-                .code(BaseCodeEnum.SUCCESS.getCode())
-                .body(new UserLoginBo(id, userInformation.getType())).build();
+        return userInformationMapper.selectByPrimaryKey(userLogin.getUserId());
     }
 
     public BaseResponse register(String userName, String password, Integer type) {
