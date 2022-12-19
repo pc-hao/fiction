@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `Chapter`
     `chapter_id`    integer,
     `chapter_name` varchar(200),
     `update_time`   varchar(200),
-    `chapter_txt` varchar(1000),
+    `chapter_txt` varchar(20000),
     PRIMARY KEY (book_id, chapter_id)
 ) DEFAULT CHARSET = utf8;
 

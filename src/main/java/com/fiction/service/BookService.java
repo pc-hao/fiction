@@ -268,4 +268,8 @@ public class BookService {
         chapterMapper.updateByPrimaryKeySelective(chapter);
         return chapter;
     }
+
+    public List<BookInforBo> getAuthorBookInfos(Integer userId) {
+        return getAuthorBooks(userId).stream().map(e -> getBookInformation(e.getBookId())).collect(Collectors.toList());
+    }
 }

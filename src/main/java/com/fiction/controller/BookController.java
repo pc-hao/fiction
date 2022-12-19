@@ -8,15 +8,13 @@ import com.fiction.entity.Chapter;
 import com.fiction.service.BookService;
 import com.fiction.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
 @RestController
 @RequestMapping("/book")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class BookController {
     @Autowired
     BookService bookService;
@@ -29,6 +27,14 @@ public class BookController {
         return BaseResponse.builder()
                 .code(BaseCodeEnum.SUCCESS.getCode())
                 .body(bookService.getAuthorBooks(userIdBo.getUserId()))
+                .build();
+    }
+
+    @PostMapping("/getAuthorBookInfos")
+    public BaseResponse getAuthorBookInfos(@RequestBody UserIdBo userIdBo) {
+        return BaseResponse.builder()
+                .code(BaseCodeEnum.SUCCESS.getCode())
+                .body(bookService.getAuthorBookInfos(userIdBo.getUserId()))
                 .build();
     }
 

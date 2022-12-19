@@ -6,10 +6,7 @@ import com.fiction.bean.bo.UserIdBo;
 import com.fiction.example.LogExample;
 import com.fiction.mapper.LogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/sql")
