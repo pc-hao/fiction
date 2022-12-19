@@ -8,8 +8,7 @@ CREATE TABLE IF NOT EXISTS `UserInformation`
     `national`  varchar(20),
     `signature` varchar(200),
     PRIMARY KEY (user_id)
-)
-    DEFAULT CHARSET = utf8;
+) DEFAULT CHARSET = utf8;
 
 insert into UserInformation
 set user_name = 'root',
