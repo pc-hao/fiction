@@ -110,11 +110,13 @@ public class BookService {
     }
 
     private boolean filterBook(Book book, SearchBookBo searchBookBo) {
-        //这块处理逻辑写的简直了，可扩展性极差，先这样吧哈哈哈哈哈哈
-
-        if ((searchBookBo.getRestrictFirstType() != 0 && !Objects.equals(book.getRestrictFirstType(), searchBookBo.getRestrictFirstType())) ||
-                (searchBookBo.getRestrictSecondType() != 0 && !Objects.equals(book.getRestrictSecondType(), searchBookBo.getRestrictSecondType())) ||
-                (searchBookBo.getRestrictFinish() != 0 && !Objects.equals(book.getFinish(), searchBookBo.getRestrictFinish()))) {
+        //对分类进行检查
+        if ((searchBookBo.getRestrictFirstType() != 0 &&
+                !Objects.equals(book.getRestrictFirstType(), searchBookBo.getRestrictFirstType())) ||
+                (searchBookBo.getRestrictSecondType() != 0 &&
+                        !Objects.equals(book.getRestrictSecondType(), searchBookBo.getRestrictSecondType())) ||
+                (searchBookBo.getRestrictFinish() != 0 &&
+                        !Objects.equals(book.getFinish(), searchBookBo.getRestrictFinish()))) {
             return false;
         }
 
@@ -128,6 +130,7 @@ public class BookService {
             return false;
         }
 
+        //对跟新时间进行检查
         long day = ChronoUnit.DAYS.between(LocalDate.parse(book.getUpdatetime()), LocalDate.now());
         if ((searchBookBo.getRestrictUpdate() == 1 && day > 3) ||
                 (searchBookBo.getRestrictUpdate() == 2 && day > 7) ||
@@ -177,7 +180,8 @@ public class BookService {
     }
 
     public CountReturnBo countBySecondType(CountBo countBo) {
-        List<BookSecondType> bookSecondTypes = BookSecondType.getSecondTypeListByFirstType(BookFirstType.getByCode(countBo.getTypeCode()));
+        List<BookSecondType> bookSecondTypes =
+                BookSecondType.getSecondTypeListByFirstType(BookFirstType.getByCode(countBo.getTypeCode()));
         List<List<Book>> booksList = bookSecondTypes.stream().map(this::getBooksBySecondType).collect(Collectors.toList());
         List<String> xData = bookSecondTypes.stream().map(BookSecondType::getName).collect(Collectors.toList());
         return count(booksList, xData, countBo.getRestrictCode());
