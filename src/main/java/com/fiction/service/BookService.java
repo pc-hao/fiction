@@ -99,7 +99,7 @@ public class BookService {
         if (searchBookBo.getSearchType().equals(SearchType.AUTHOR.getCode())) {
             List<UserInformation> userInformations = userInformationMapper.selectByName(searchBookBo.getSearchText());
             return userInformations.stream().flatMap(
-                    e -> getAuthorBooks(e.getUserId()).stream().map(this::bookToBookInfo)
+                    e -> getAuthorBooks(e.getUserId()).stream().filter(o -> filterBook(o, searchBookBo)).map(this::bookToBookInfo)
             ).collect(Collectors.toList());
         }
         //其实这么写应该是有坑的，因为直接把所有书籍的信息读到内存里，在内存里做过滤，有可能信息太多了。
